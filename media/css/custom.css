@@ -1,0 +1,23 @@
+.noborder{
+    /* border: none; */
+}
+
+.right{
+    text-align: right;
+}
+
+.center{
+    text-align: center;
+}
+
+.solid{
+    border-style: solid;
+}
+
+.b-blue{
+    border-color:  blue;
+}
+
+.w-2{
+    width:  70px;
+}
