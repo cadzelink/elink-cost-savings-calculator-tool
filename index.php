@@ -65,7 +65,7 @@
                                 <td class="center">Product 1</td>
                                 <td id="init-select" class="center"></td>
                                 <td class="center"><input id="quan-1" type="text" class="quan-check w-60px"></td>
-                                <td id="gross-com-1" class="gross-com right" data-com_val_gross="0"></td>
+                                <td id="gross-com-1" class="gross-com right" data-com_val_gross="0" data-prod_gross="0" data-prod_net="0" data-prod_desc=""></td>
                                 <td class="net-com right"></td>
                                 <td id="price_netcom_1" class="price-com right" data-com_priceNetCom="0"></td>
                             </tr>
@@ -74,7 +74,7 @@
                             <tr>
                                 <td colspan="6" class="center">
                                     <button type="button" class="btn btn-success add-prod">Add Product</button>
-                                    <button type="button" class="btn btn-danger">Remove Product</button>
+                                    <button type="button" class="btn btn-info generate_pdf">Generate PDF</button>
                                 </td>
                             </tr>
                         </tfoot>
@@ -99,7 +99,7 @@
                 <td class="center">Product {{id}}</td>
                 <td id="col-ctr-{{id}}" class="center"></td>
                 <td class="center"><input id="quan-{{id}}" type="text" class="quan-check w-60px"></td>
-                <td id="gross-com-{{id}}" class="right gross-com" data-com_val_gross="0"></td>
+                <td id="gross-com-{{id}}" class="right gross-com" data-com_val_gross="0" data-prod_gross="0" data-prod_net="0" data-prod_desc=""></td>
                 <td class="right net-com"></td>
                 <td id="price_netcom_{{id}}" class="right price-com" data-com_priceNetCom="0"></td>
             </tr>
@@ -143,6 +143,26 @@
                 initSelect();
             });
             
+            $(".generate_pdf").click(function(){
+                var i = 0;
+                var products = [];
+                var product = {};
+                for(i = 1; i <= num_count; i++){
+                    product = {
+                        gross   : $("#gross-com-" + i).attr('data-prod_gross'),
+                        net     : $("#gross-com-" + i).attr('data-prod_net'),
+                        desc    : $("#gross-com-" + i).attr('data-prod_desc')
+                    };
+                    products.push(product);
+                }
+                var pdf_obj = {
+                    count       : num_count,
+                    products    : products
+                };
+                
+                console.log(pdf_obj);
+            });
+            
             $("#discount_com").on("keyup",function(){
                 ComputeTotalNet()
             });
@@ -152,12 +172,15 @@
                 var quan = $("#quan-" + row).val();
                 var gross = $("#select-" + row).val();
                 var gross_total = gross * quan;
-                var net = $("#select-" + row).find(":selected").data("net")
+                var net = $("#select-" + row).find(":selected").data("net");
+                var desc = $("#select-" + row).find(":selected").text();
                 var price = net * quan;
                 
                 $("#gross-com-" + row).attr('data-com_val_gross',gross_total);
+                $("#gross-com-" + row).attr('data-prod_gross',gross);
+                $("#gross-com-" + row).attr('data-prod_net',net);
+                $("#gross-com-" + row).attr('data-prod_desc',desc);
                 $("#price_netcom_" + row).attr('data-com_priceNetCom',price);
-                //console.log('#gross-com-' + row + " = " + $("#gross-com-" + row).attr('data-com_val_gross'));
                 $("#row-" + row + " .gross-com").html(gross_total.toFixed(2));
                 $("#row-" + row + " .net-com").html(net);
                 $("#row-" + row + " .price-com").html(price.toFixed(2));
@@ -167,14 +190,11 @@
                 var partial_net = 0;
                 
                 for(i = 1; i <= num_count; i++){
-                    //console.log('data val ' + $("#gross-com-" + i).attr('data-com_val_gross'));
-                    //console.log(i);
                     final_gross = parseFloat(final_gross) + parseFloat($("#gross-com-" + i).attr('data-com_val_gross'));
                     partial_net = parseFloat(partial_net) + parseFloat($("#price_netcom_" + i).attr('data-com_priceNetCom'));
                 }
                 $("#partial_hidden_txt").val(partial_net);
                 $("#gross_hidden_val").val(final_gross);
-                //console.log('final_gross ' + final_gross);
                 $("#gross-clmn").html(final_gross.toFixed(2));
                 $("#partial-clmn").html(partial_net.toFixed(2));
                 ComputeTotalNet()
@@ -198,7 +218,6 @@
                 var savings = 0;
                 var percentage =0;
                 
-                //console.log("partial " + partial);
                 total_net = partial - (partial * (discount / 100));
                 savings = gross - total_net;
                 percentage = savings > 0 ? savings/total_net * 100 : 0;
