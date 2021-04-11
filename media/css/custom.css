@@ -6,6 +6,10 @@
     text-align: center;
 }
 
+.middle{
+    vertical-align: middle;
+}
+
 .solid{
     border-style: solid;
 }
