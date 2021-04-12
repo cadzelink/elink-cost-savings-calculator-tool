@@ -43,10 +43,12 @@ class PDF extends FPDF{
         $this->SetLineWidth(.1);
         $this->SetFont('Arial','',30);
 
-        $this->Cell(110,15,'ReadersMagnet','LT',0,'L',true);  
-        $this->Cell(25,15,'','T',0,'C',true);
-        $this->Cell(25,15,'','T',0,'C',true);
-        $this->Cell(25,15,'','TR',0,'C',true);
+        $this->Cell(110,30,'','LT',0,'L',true);
+        $this->image('media/images/rm-logo.jpg',12,12,90);
+        $this->SetFont('Arial','',7);
+        $this->Cell(25,30,'','T',0,'C',true);
+        $this->Cell(25,30,'','T',0,'C',true);
+        $this->Cell(25,30,'','TR',0,'C',true);
         $this->Ln();
 
         $this->SetFillColor(255,255,255);
@@ -72,7 +74,7 @@ class PDF extends FPDF{
         $this->Cell(25,7,'','TR',0,'C',true);
         $this->Ln();
 
-        $this->SetFillColor(13,110,253);
+        $this->SetFillColor(220,53,69);
         $this->SetTextColor(248,249,250);
         $this->SetDrawColor(52,58,64);
         $this->SetLineWidth(.1);
@@ -92,7 +94,7 @@ class PDF extends FPDF{
         $gross_ = "$".number_format($obj->gross_sales,2,".",",");
         $this->Cell(110,7,'','LR',0,'C',true);
         $this->Cell(25,7,'','L',0,'C',true);
-        $this->SetFillColor(13,110,253);
+        $this->SetFillColor(220,53,69);
         $this->SetTextColor(255,255,255);
         $this->Cell(25,7,'Gross',1,0,'R',true);
         $this->SetFillColor(255,255,255);
@@ -103,7 +105,7 @@ class PDF extends FPDF{
         $partial_net = "$".number_format($obj->partial_net,2,".",",");
         $this->Cell(110,7,'','LR',0,'C',true);
         $this->Cell(25,7,'','L',0,'C',true);
-        $this->SetFillColor(13,110,253);
+        $this->SetFillColor(220,53,69);
         $this->SetTextColor(255,255,255);
         $this->Cell(25,7,'Partial Net',1,0,'R',true);
         $this->SetFillColor(255,255,255);
@@ -116,7 +118,7 @@ class PDF extends FPDF{
         $this->Cell(1,7,'','L',0,'C',true);
         $this->Cell(109,0,$total_net,0,0,'C',true);
         $this->Cell(25,7,'','L',0,'C',true);
-        $this->SetFillColor(40,167,69);
+        $this->SetFillColor(255,102,102);
         $this->SetTextColor(255,255,255);
         $this->SetFont('Arial','B',10);
         $this->Cell(25,7,'Total Net',1,0,'R',true);
@@ -128,7 +130,7 @@ class PDF extends FPDF{
         $savings_ = "$".number_format($obj->savings,2,".",",");
         $this->Cell(110,7,'','L',0,'C',true);
         $this->Cell(25,7,'','L',0,'C',true);
-        $this->SetFillColor(40,167,69);
+        $this->SetFillColor(255,102,102);
         $this->SetTextColor(255,255,255);
         $this->Cell(25,7,'Savings',1,0,'R',true);
         $this->SetFillColor(255,255,255);
@@ -139,7 +141,7 @@ class PDF extends FPDF{
         $percentage_ = number_format($obj->percentage,1,".",",")."%";
         $this->Cell(110,7,'','LR',0,'C',true);
         $this->Cell(25,7,'','L',0,'C',true);
-        $this->SetFillColor(23,162,184);
+        $this->SetFillColor(255,51,51);
         $this->SetTextColor(255,255,255);
         $this->Cell(25,7,'%',1,0,'R',true);
         $this->SetFillColor(255,255,255);
@@ -155,7 +157,7 @@ class PDF extends FPDF{
         $this->Cell(25,7,'','TR',0,'C',true);
         $this->Ln();
 
-        $this->SetFillColor(13,110,253);
+        $this->SetFillColor(220,53,69);
         $this->SetTextColor(255,255,255);
         $this->SetDrawColor(52,58,64);
         $this->SetLineWidth(.1);

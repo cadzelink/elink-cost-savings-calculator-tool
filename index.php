@@ -20,45 +20,45 @@
                             <td colspan="6">&nbsp;</td>
                         </tr>
                         <tr>
-                            <td class="solid s-blue text-white bg-primary center bold" colspan="3">Actual Price</td>
+                            <td class="solid s-blue text-white bg-danger center bold" colspan="3">Actual Price</td>
                             <td colspan="3"></td>
                         </tr>
                         <tr>
-                            <td id="actual-clmn" class="border border-primary bold center middle" rowspan="5" colspan="3"></td>
+                            <td id="actual-clmn" class="border border-danger bold center middle" rowspan="5" colspan="3"></td>
                             <td><input type="hidden" id="gross_hidden_val" value="0"></td>
-                            <td class="bg-primary text-white right bold" style="min-width: 100px;">Gross</td>
+                            <td class="bg-danger text-white right bold" style="min-width: 100px;">Gross</td>
                             <td id="gross-clmn" class="right bold">$0.00</td>
                         </tr>
                         <tr>
                             <td><input id="partial_hidden_txt" type="hidden" value="0"></td>
-                            <td class="bg-primary text-white right bold">Partial Net</td>
+                            <td class="bg-danger text-white right bold">Partial Net</td>
                             <td id="partial-clmn" class="right bold">$0.00</td>
                         </tr>
                         <tr>
                             <td><input type="hidden" id="total_hidden_net" value="0"></td>
-                            <td class="bg-success text-white right bold">Total Net</td>
+                            <td class="text-white right bold" style="background-color: #d82139;">Total Net</td>
                             <td id="total-clmn" class="right bold">$0.00</td>
                         </tr>
                         <tr>
                             <td><input type="hidden" id="hidden_savings" value="0"></td>
-                            <td class="bg-success text-white right bold">Savings</td>
+                            <td class="text-white right bold" style="background-color: #d82139;">Savings</td>
                             <td id="savings-clmn" class="right bold">$0.00</td>
                         </tr>
                         <tr>
                             <td><input type="hidden" id="hidden_percentage" value="0"></td>
-                            <td class="bg-primary text-white right bold">%</td>
+                            <td class="bg-danger text-white right bold">%</td>
                             <td id="percent-clmn" class="right bold">0%</td>
                         </tr>
                         <tr>
                             <td colspan="6">&nbsp;</td>
                         </tr>
                         <tr>
-                            <th class="bg-primary text-white center" style="min-width: 100px;">#</th>
-                            <th class="bg-primary text-white center">Product</th>
-                            <th class="bg-primary text-white center" style="min-width: 70px;">Quantity</th>
-                            <th class="bg-primary text-white center" style="min-width: 100px;">Gross</th>
-                            <th class="bg-primary text-white center">Net</th>
-                            <th class="bg-primary text-white center">Price</th>
+                            <th class="bg-danger text-white center" style="min-width: 100px;">#</th>
+                            <th class="bg-danger text-white center">Product</th>
+                            <th class="bg-danger text-white center" style="min-width: 70px;">Quantity</th>
+                            <th class="bg-danger text-white center" style="min-width: 100px;">Gross</th>
+                            <th class="bg-danger text-white center">Net</th>
+                            <th class="bg-danger text-white center">Price</th>
                         </tr>
                         <tbody id="body-calc">
                             <tr id="row-1" data-row="1">
@@ -74,11 +74,11 @@
                             <tr>
                                 <td colspan="6">
                                     <div class="row">
-                                        <div class="col-6 right"><button type="button" class="btn btn-success add-prod">Add Product</button></div>
+                                        <div class="col-6 right"><button type="button" class="btn btn-danger add-prod">Add Product</button></div>
                                         <div class="col-6">
-                                            <form id="process_pdf" method="post" action="generate.php">
+                                            <form id="process_pdf" method="post" action="generate.php" target="_blank">
                                                 <input id="form_obj_holder" type="hidden" name="form_obj" value="">
-                                                <input type="submit" name="submitForm" class="btn btn-info" value="Generate PDF">
+                                                <input type="submit" name="submitForm" class="btn btn-danger" value="Generate PDF">
                                             </form>
                                         </div>
                                     </div>
@@ -211,8 +211,8 @@
                 }
                 $("#partial_hidden_txt").val(partial_net);
                 $("#gross_hidden_val").val(final_gross);
-                $("#gross-clmn").html(final_gross.toFixed(2));
-                $("#partial-clmn").html(partial_net.toFixed(2));
+                $("#gross-clmn").html("$" + final_gross.toFixed(2));
+                $("#partial-clmn").html("$" + partial_net.toFixed(2));
                 ComputeTotalNet()
             }
             
@@ -240,10 +240,10 @@
                 $("#total_hidden_net").val(total_net);
                 $("#hidden_savings").val(savings);
                 $("#hidden_percentage").val(percentage);
-                $("#total-clmn").html(total_net.toFixed(2));
+                $("#total-clmn").html("$" + total_net.toFixed(2));
                 $("#actual-clmn").html("$" + numFormat(total_net.toFixed(2)));
-                $("#savings-clmn").html(savings.toFixed(2));
-                $("#percent-clmn").html(percentage.toFixed(1) + "%");
+                $("#savings-clmn").html("$" + savings.toFixed(2));
+                $("#percent-clmn").html("$" + percentage.toFixed(1) + "%");
             }
             
             function numFormat(num){
