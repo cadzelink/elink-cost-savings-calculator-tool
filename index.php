@@ -35,17 +35,17 @@
                             <td id="partial-clmn" class="right bold">$0.00</td>
                         </tr>
                         <tr>
-                            <td></td>
+                            <td><input type="hidden" id="total_hidden_net" value="0"></td>
                             <td class="bg-success text-white right bold">Total Net</td>
                             <td id="total-clmn" class="right bold">$0.00</td>
                         </tr>
                         <tr>
-                            <td></td>
+                            <td><input type="hidden" id="hidden_savings" value="0"></td>
                             <td class="bg-success text-white right bold">Savings</td>
                             <td id="savings-clmn" class="right bold">$0.00</td>
                         </tr>
                         <tr>
-                            <td></td>
+                            <td><input type="hidden" id="hidden_percentage" value="0"></td>
                             <td class="bg-primary text-white right bold">%</td>
                             <td id="percent-clmn" class="right bold">0%</td>
                         </tr>
@@ -72,9 +72,16 @@
                         </tbody>
                         <tfoot>
                             <tr>
-                                <td colspan="6" class="center">
-                                    <button type="button" class="btn btn-success add-prod">Add Product</button>
-                                    <button type="button" class="btn btn-info generate_pdf">Generate PDF</button>
+                                <td colspan="6">
+                                    <div class="row">
+                                        <div class="col-6 right"><button type="button" class="btn btn-success add-prod">Add Product</button></div>
+                                        <div class="col-6">
+                                            <form id="process_pdf" method="post" action="generate.php">
+                                                <input id="form_obj_holder" type="hidden" name="form_obj" value="">
+                                                <input type="submit" name="submitForm" class="btn btn-info" value="Generate PDF">
+                                            </form>
+                                        </div>
+                                    </div>
                                 </td>
                             </tr>
                         </tfoot>
@@ -109,7 +116,7 @@
             <select id="select-{{id}}">
                 <option value="0" data-net="0">Select Product</option>
             <?php 
-                include_once 'lib/conn.php';
+                require_once 'lib/conn.php';
                 $mysql = new Conn();
                 $results = $mysql->getResults("SELECT * FROM `calculator` ORDER BY `product` ASC");
                 foreach($results as $result):
@@ -131,6 +138,35 @@
                 $("#init-select").html(templateHtml);
                 initSelect();
             });
+
+            $("#process_pdf").submit(function(e){
+                var i = 0;
+                var products = [];
+                var product = {};
+                for(i = 1; i <= num_count; i++){
+                    var quantity = parseFloat($("#quan-" + i).val());
+                    product = {
+                        gross   : parseFloat($("#gross-com-" + i).attr('data-prod_gross')) * quantity,
+                        net     : $("#gross-com-" + i).attr('data-prod_net'),
+                        desc    : $("#gross-com-" + i).attr('data-prod_desc'),
+                        price   : parseFloat($("#gross-com-" + i).attr('data-prod_net')) * quantity,
+                        quan    : quantity
+                    };
+                    products.push(product);
+                }
+                var pdf_obj = {
+                    products    : products,
+                    count       : num_count,
+                    gross_sales : $("#gross_hidden_val").val() ? parseFloat($("#gross_hidden_val").val()) : 0,
+                    partial_net : $("#partial_hidden_txt").val() ? parseFloat($("#partial_hidden_txt").val()) : 0,
+                    total_net   : $("#total_hidden_net").val() ? parseFloat($("#total_hidden_net").val()) : 0,
+                    savings     : $("#hidden_savings").val() ? parseFloat($("#hidden_savings").val()) : 0,
+                    percentage  : $("#hidden_percentage").val() ? parseFloat($("#hidden_percentage").val()) : 0,
+                    discount    : $("#discount_com").val() ? $("#discount_com").val() : 0
+                };
+                
+                $("#form_obj_holder").val(JSON.stringify(pdf_obj));
+            });
             
             $(".add-prod").click(function(){
                 num_count++;
@@ -141,26 +177,6 @@
                 templateHtml = templateHtml.replace(/{{id}}/g,num_count);
                 $("#col-ctr-" + num_count).html(templateHtml);
                 initSelect();
-            });
-            
-            $(".generate_pdf").click(function(){
-                var i = 0;
-                var products = [];
-                var product = {};
-                for(i = 1; i <= num_count; i++){
-                    product = {
-                        gross   : $("#gross-com-" + i).attr('data-prod_gross'),
-                        net     : $("#gross-com-" + i).attr('data-prod_net'),
-                        desc    : $("#gross-com-" + i).attr('data-prod_desc')
-                    };
-                    products.push(product);
-                }
-                var pdf_obj = {
-                    count       : num_count,
-                    products    : products
-                };
-                
-                console.log(pdf_obj);
             });
             
             $("#discount_com").on("keyup",function(){
@@ -221,6 +237,9 @@
                 total_net = partial - (partial * (discount / 100));
                 savings = gross - total_net;
                 percentage = savings > 0 ? savings/total_net * 100 : 0;
+                $("#total_hidden_net").val(total_net);
+                $("#hidden_savings").val(savings);
+                $("#hidden_percentage").val(percentage);
                 $("#total-clmn").html(total_net.toFixed(2));
                 $("#actual-clmn").html("$" + numFormat(total_net.toFixed(2)));
                 $("#savings-clmn").html(savings.toFixed(2));
