@@ -29,3 +29,16 @@
 .bold{
     font-weight: bold;
 }
+
+.font_c{
+    font-size: 12px;
+    
+}
+
+.h_red{
+    color: #e05858;
+}
+
+.h_gray{
+    color: #6c757d;
+}

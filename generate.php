@@ -189,8 +189,58 @@ class PDF extends FPDF{
             $this->Cell(25,7,$net,1,0,'R',true);
             $this->Cell(25,7,$price,1,0,'R',true);
             $this->Ln();
+
         }
-    
+        $this->Ln();
+        $this->SetFillColor(255,255,255);
+        $this->SetTextColor(244,88,88);
+        $this->SetDrawColor(255,255,255);
+        $this->SetFont('Arial','B',9);
+        $this->Cell(25,7,'Terms',1,0,'',true);
+        $this->Cell(160,7,'Definition',1,0,'',true);
+        $this->Ln();
+
+        $this->SetFillColor(255,255,255);
+        $this->SetTextColor(108,117,125);
+        $this->SetDrawColor(255,255,255);
+        $this->SetFont('Arial','B',9);
+        $this->Cell(25,5,'Gross',1,0,'',true);
+        $this->SetFont('Arial','',9);
+        $this->Cell(160,5,'Sum price of ala carte service; including complimentary service; without discount',1,0,'',true);
+        $this->Ln();
+
+        $this->SetFillColor(255,255,255);
+        $this->SetDrawColor(255,255,255);
+        $this->SetFont('Arial','B',9);
+        $this->Cell(25,5,'Partial Net',1,0,'',true);
+        $this->SetFont('Arial','',9);
+        $this->Cell(160,5,'Sum price of discounted bundle; without discount',1,0,'',true);
+        $this->Ln();
+
+        $this->SetFillColor(255,255,255);
+        $this->SetDrawColor(255,255,255);
+        $this->SetFont('Arial','B',9);
+        $this->Cell(25,5,'Total Net',1,0,'',true);
+        $this->SetFont('Arial','',9);
+        $this->Cell(160,5,'Sum price of all services which author shall pay aka Actual Price; discounted',1,0,'',true);
+        $this->Ln();
+
+        $this->SetFillColor(255,255,255);
+        $this->SetDrawColor(255,255,255);
+        $this->SetFont('Arial','B',9);
+        $this->Cell(25,5,'Savings',1,0,'',true);
+        $this->SetFont('Arial','',9);
+        $this->Cell(160,5,'Sum of discount given',1,0,'',true);
+        $this->Ln();
+
+        
+        $this->SetFillColor(255,255,255);
+        $this->SetDrawColor(255,255,255);
+        $this->SetFont('Arial','B',9);
+        $this->Cell(25,5,'%',1,0,'',true);
+        $this->SetFont('Arial','',9);
+        $this->Cell(160,5,'Savings versus actual price',1,0,'',true);
+        $this->Ln();
     }
 
 }
