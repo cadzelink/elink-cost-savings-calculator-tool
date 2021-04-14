@@ -79,8 +79,8 @@ function computePrice(obj){
     }
     $("#partial_hidden_txt").val(partial_net);
     $("#gross_hidden_val").val(final_gross);
-    $("#gross-clmn").html("$" + final_gross.toFixed(2));
-    $("#partial-clmn").html("$" + partial_net.toFixed(2));
+    $("#gross-clmn").html("$" + numFormat(final_gross.toFixed(2)));
+    $("#partial-clmn").html("$" + numFormat(partial_net.toFixed(2)));
     ComputeTotalNet()
 }
 
@@ -108,15 +108,8 @@ function ComputeTotalNet(){
     $("#total_hidden_net").val(total_net);
     $("#hidden_savings").val(savings);
     $("#hidden_percentage").val(percentage);
-    $("#total-clmn").html("$" + total_net.toFixed(2));
+    $("#total-clmn").html("$" + numFormat(total_net.toFixed(2)));
     $("#actual-clmn").html("$" + numFormat(total_net.toFixed(2)));
-    $("#savings-clmn").html("$" + savings.toFixed(2));
-    $("#percent-clmn").html("$" + percentage.toFixed(1) + "%");
-}
-
-function numFormat(num){
-    var num_parts = num.toString().split(".");
-
-    num_parts[0] = num_parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    return num_parts.join(".");
+    $("#savings-clmn").html("$" + numFormat(savings.toFixed(2)));
+    $("#percent-clmn").html(percentage.toFixed(1) + "%");
 }

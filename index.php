@@ -8,11 +8,11 @@
     </head>
     <body>
         <div class="container">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-danger">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-danger">
                 <div class="container-fluid">
                     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                         <div class="navbar-nav">
-                            <a class="nav-link bold active" aria-current="page" href="/">Product Savings Calculator</a>
+                            <a class="nav-link bold active underline" aria-current="page" href="/">Product Savings Calculator</a>
                             <a class="nav-link" href="/book_order_calculator.php">Book Order Calculator</a>
                         </div>
                     </div>
@@ -23,11 +23,12 @@
                 <div class="col-md-8">
                     <table id="main-table" class="table table-bordered">
                         <tr>
-                            <td class="right bold" colspan="5">Discount</td>
-                            <td class="right" style="min-width: 100px;"><input id="discount_com" type="text" maxlength="3" class="w-60px">&nbsp;%</td>
+                            <td colspan="6">&nbsp;</td>
                         </tr>
                         <tr>
-                            <td colspan="6">&nbsp;</td>
+                            <td></td>
+                            <td class="bold right" colspan="4">Discount&nbsp;&nbsp;<input id="discount_com" type="text">&nbsp;%</td>
+                            <td></td>
                         </tr>
                         <tr>
                             <td class="solid s-blue text-white bg-danger center bold" colspan="3">Actual Price</td>
@@ -141,6 +142,7 @@
         <script src="/media/js/bootstrap.js"></script>
         <script src="/media/js/jquery-3.6.0.js"></script>
         <script src="/media/js/select2.min.js"></script>
+         <script src="/media/js/lib.js"></script>
         
         <script id="tr-row-scr" type="text/template">
             <tr id="row-{{id}}" data-row="{{id}}">

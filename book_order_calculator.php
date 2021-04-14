@@ -13,7 +13,7 @@
                     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                         <div class="navbar-nav">
                             <a class="nav-link" href="/">Product Savings Calculator</a>
-                            <a class="nav-link  bold active" aria-current="page" href="/book_order_calculator.php">Book Order Calculator </a>
+                            <a class="nav-link  bold active underline" aria-current="page" href="/book_order_calculator.php">Book Order Calculator </a>
                         </div>
                     </div>
                 </div>
@@ -22,10 +22,6 @@
                 <div class="col-md-2"></div>
                 <div class="col-md-8">
                     <table id="main-table" class="table table-bordered">
-           
-                        <tr>
-                            <td colspan="6">&nbsp;</td>
-                        </tr>
                         <tr>
                             <td colspan="6">&nbsp;</td>
                         </tr>

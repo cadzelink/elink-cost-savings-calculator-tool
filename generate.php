@@ -179,6 +179,7 @@ class PDF extends FPDF{
             $id = "Product ".$num;
             $prod = $obj->products[$i]->desc;
             $quan = $obj->products[$i]->quan;
+            $quan = number_format($quan,0,".",",");
             $gross = "$".number_format($obj->products[$i]->gross,2,".",",");
             $net = "$".number_format($obj->products[$i]->net,2,".",",");
             $price = "$".number_format($obj->products[$i]->price,2,".",",");

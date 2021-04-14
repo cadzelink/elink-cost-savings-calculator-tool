@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 12, 2021 at 03:41 PM
+-- Generation Time: Apr 14, 2021 at 03:19 PM
 -- Server version: 5.7.33-0ubuntu0.16.04.1
 -- PHP Version: 7.2.34-18+ubuntu16.04.1+deb.sury.org+1
 
@@ -91,7 +91,32 @@ INSERT INTO `calculator` (`id`, `product`, `gross`, `net`, `status`) VALUES
 (56, 'Radio Interview w Ric Bratton', '699.00', '699.00', 1),
 (57, 'Radio Interview w Benjie Cole', '1599.00', '1599.00', 1),
 (58, 'Combo Radio Int - Ric + Kate', '2298.00', '1999.00', 1),
-(59, 'Trio Radio Int - Ric + Kate + Benjie', '3897.00', '3398.00', 1);
+(59, 'Trio Radio Int - Ric + Kate + Benjie', '3897.00', '3398.00', 1),
+(60, 'US Copyright Registration - Add On Service', '190.00', '190.00', 1),
+(61, 'Hardcover Availability w/ ISBN - Add On Service', '269.00', '269.00', 1),
+(62, 'Resubmission w/ ISBN (per version) - Add On Service', '249.00', '249.00', 1),
+(63, 'Paper Gallery Service - Add On Service', '100.00', '100.00', 1),
+(64, 'Illustration - Artistic - Add On Service', '199.00', '199.00', 1),
+(65, 'Illustration x 10 - Artistic - Add On Service', '1990.00', '1779.00', 1),
+(66, 'Illustration x 15 - Artistic - Add On Service', '2985.00', '2389.00', 1),
+(67, 'Illustration - Vivid - Add On Service', '239.00', '239.00', 1),
+(68, 'Illustration x 10 - Vivid - Add On Service', '2390.00', '2199.00', 1),
+(69, 'Illustration x 15 - Vivid- Add On Service', '3585.00', '2899.00', 1),
+(70, 'Illustration - Intricate - Add On Service', '279.00', '279.00', 1),
+(71, 'Illustration x 10 - Intricate - Add On Service', '2790.00', '2699.00', 1),
+(72, 'Illustration x 15 - Intricate - Add On Service', '4185.00', '3899.00', 1),
+(73, 'Basic Cover Design - Add On Service', '150.00', '150.00', 1),
+(74, 'Standard Cover Design - Add On Service', '250.00', '250.00', 1),
+(75, 'Advanced Cover Design - Add On Service', '130.00', '300.00', 1),
+(76, 'Image Enhancement (per image) - Add On Service', '35.00', '35.00', 1),
+(77, 'Additional Interior Image (per item)- Add On Service', '15.00', '15.00', 1),
+(78, 'Additional Interior Graphics & Tables (per item) - Add On Service', '25.00', '25.00', 1),
+(79, 'Basic Interior Text and Layout - Add On Service', '150.00', '150.00', 1),
+(80, 'Standard  Interior Text and Layout - Add On Service', '250.00', '250.00', 1),
+(81, 'Advanced Interior Text and Layout - Add On Service', '300.00', '300.00', 1),
+(82, 'Audiobook - First 5000 Words', '1399.00', '1399.00', 1),
+(83, 'Audiobook - Excess Words', '0.10', '0.10', 1),
+(84, 'Revision - Interior Text (per word) - Add On Service', '0.13', '0.13', 1);
 
 --
 -- Indexes for dumped tables
@@ -112,4 +137,4 @@ ALTER TABLE `calculator`
 -- AUTO_INCREMENT for table `calculator`
 --
 ALTER TABLE `calculator`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=85;

@@ -42,3 +42,7 @@
 .h_gray{
     color: #6c757d;
 }
+
+.underline{
+    text-decoration: underline;
+}
