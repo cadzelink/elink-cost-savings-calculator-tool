@@ -233,9 +233,6 @@ class PDF extends FPDF{
         $this->Cell(160,5,'Sum of discount given',1,0,'',true);
         $this->Ln();
 
-        
-        $this->SetFillColor(255,255,255);
-        $this->SetDrawColor(255,255,255);
         $this->SetFont('Arial','B',9);
         $this->Cell(25,5,'%',1,0,'',true);
         $this->SetFont('Arial','',9);
@@ -243,9 +240,101 @@ class PDF extends FPDF{
         $this->Ln();
     }
 
+    function BookOrder($obj){
+        $this->SetFillColor(255,255,255);
+        $this->SetTextColor(220,53,69);
+        $this->SetDrawColor(52,58,64);
+        $this->SetDrawColor(52,58,64);
+        $this->SetLineWidth(.1);
+
+        $this->Cell(110,30,'','LT',0,'L',true);
+        $this->image('media/images/rm-logo.jpg',12,12,90);
+        $this->SetFont('Arial','',7);
+        $this->Cell(25,30,'','T',0,'C',true);
+        $this->Cell(25,30,'','T',0,'C',true);
+        $this->Cell(25,30,'','TR',0,'C',true);
+        $this->Ln();
+
+        $this->Cell(70,3,'','L',0,'C',true);
+        $this->Cell(20,3,'',0,0,'C',true);  
+        $this->Cell(25,3,'',0,0,'C',true);
+        $this->Cell(20,3,'',0,0,'C',true);
+        $this->Cell(25,3,'',0,0,'C',true);
+        $this->Cell(25,3,'','R',0,'C',true);
+        $this->Ln();
+
+        $this->SetFont('Arial','B',10);
+        $this->SetFillColor(220,53,69);
+        $this->SetTextColor(248,249,250);
+        $this->Cell(60,8,'Product',1,0,'C',true);
+        $this->Cell(22,8,'Quantity',1,0,'C',true);  
+        $this->Cell(27,8,'Book Price',1,0,'C',true);
+        $this->Cell(22,8,'AVD%',1,0,'C',true);
+        $this->Cell(27,8,'Shipping',1,0,'C',true);
+        $this->Cell(27,8,'Total',1,0,'C',true);
+        $this->Ln();
+
+        $this->SetFont('Arial','',10);
+        $this->SetFillColor(248,249,250);
+        $this->SetTextColor(52,58,64);
+
+        if($obj->type < 3):
+            $cover = $obj->type == 1 ? "Paperback Order" : "Hardcover Order";
+            $this->Cell(60,8,$cover,1,0,'C',true);
+            $quantity = $obj->type == 1 ? $obj->quantity->paper : $obj->quantity->hard;
+            $this->Cell(22,8,$quantity,1,0,'C',true);
+            $price = "$".number_format($obj->type == 1 ? $obj->price->paper :$obj->price->hard,2,".",",");  
+            $this->Cell(27,8,$price,1,0,'C',true);
+            $discount = $obj->type == 1 ? $obj->discount->paper : $obj->discount->hard;
+            $discount.="%";
+            $this->Cell(22,8,$discount,1,0,'C',true);
+            $shipping = "$".number_format($obj->type == 1 ? $obj->shipping->paper :$obj->shipping->hard,2,".",",");  
+            $this->Cell(27,8,$shipping,1,0,'C',true);
+            $total = "$".number_format($obj->type == 1 ? $obj->total->paper :$obj->total->hard,2,".",",");  
+            $this->Cell(27,8,$total,1,0,'C',true);
+            $this->Ln();
+        else:
+            $cover = "Paperback Order";
+            $this->Cell(60,8,$cover,1,0,'C',true);
+            $quantity = $obj->quantity->paper ;
+            $this->Cell(22,8,$quantity,1,0,'C',true);
+            $price = "$".number_format($obj->price->paper,2,".",",");  
+            $this->Cell(27,8,$price,1,0,'C',true);
+            $discount = $obj->discount->paper."%";
+            $this->Cell(22,8,$discount,1,0,'C',true);
+            $shipping = "$".number_format($obj->shipping->paper,2,".",",");  
+            $this->Cell(27,8,$shipping,1,0,'C',true);
+            $total = "$".number_format($obj->total->paper,2,".",",");  
+            $this->Cell(27,8,$total,1,0,'R',true);
+            $this->Ln();
+            
+            $cover = "Hardcover Order";
+            $this->Cell(60,8,$cover,1,0,'C',true);
+            $quantity = $obj->quantity->hard ;
+            $this->Cell(22,8,$quantity,1,0,'C',true);
+            $price = "$".number_format($obj->price->hard,2,".",",");  
+            $this->Cell(27,8,$price,1,0,'C',true);
+            $discount = $obj->discount->hard."%";
+            $this->Cell(22,8,$discount,1,0,'C',true);
+            $shipping = "$".number_format($obj->shipping->hard,2,".",",");  
+            $this->Cell(27,8,$shipping,1,0,'C',true);
+            $total = "$".number_format($obj->total->hard,2,".",",");  
+            $this->Cell(27,8,$total,1,0,'R',true);
+            $this->Ln();
+
+            $this->SetFillColor(220,53,69);
+            $this->SetTextColor(248,249,250);
+            $this->SetFont('Arial','B',12);
+            $this->Cell(158,8,'Grand Total',1,0,'R',true);
+            $total = "$".number_format($obj->total->paper + $obj->total->hard,2,".",",");  
+            $this->Cell(27,8,$total,1,0,'R',true);
+            $this->Ln();
+        endif;
+    }
+
 }
 
-if(isset($_POST) && $_POST['submitForm']):
+if(isset($_POST) && isset($_POST['submitFormIndex'])):
     $obj = json_decode($_POST['form_obj']);
     ob_start();
     $pdf = new PDF();
@@ -255,3 +344,14 @@ if(isset($_POST) && $_POST['submitForm']):
     ob_end_flush(); 
 endif;
 
+if(isset($_POST) && isset($_POST['submitFormBookOrder'])):
+    
+    $obj = json_decode($_POST['bookOBJ']);
+    $pdf = new PDF();
+
+    $pdf->AddPage();
+    $pdf->BookOrder($obj);
+    $pdf->Output();
+
+    ob_end_flush();
+endif;

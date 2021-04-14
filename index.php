@@ -8,6 +8,16 @@
     </head>
     <body>
         <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-danger">
+                <div class="container-fluid">
+                    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                        <div class="navbar-nav">
+                            <a class="nav-link bold active" aria-current="page" href="/">Product Savings Calculator</a>
+                            <a class="nav-link" href="/book_order_calculator.php">Book Order Calculator</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
             <div class="row">
                 <div class="col-md-2"></div>
                 <div class="col-md-8">
@@ -79,7 +89,7 @@
                                         <div class="col-3">
                                             <form id="process_pdf" method="post" action="generate.php" target="_blank">
                                                 <input id="form_obj_holder" type="hidden" name="form_obj" value="">
-                                                <input type="submit" name="submitForm" class="btn btn-danger" value="Generate PDF">
+                                                <input type="submit" name="submitFormIndex" class="btn btn-danger" value="Generate PDF">
                                             </form>
                                         </div>
                                     </div>

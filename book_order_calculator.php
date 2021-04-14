@@ -8,6 +8,16 @@
     </head>
     <body>
         <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-danger">
+                <div class="container-fluid">
+                    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                        <div class="navbar-nav">
+                            <a class="nav-link" href="/">Product Savings Calculator</a>
+                            <a class="nav-link  bold active" aria-current="page" href="/book_order_calculator.php">Book Order Calculator </a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
             <div class="row">
                 <div class="col-md-2"></div>
                 <div class="col-md-8">
@@ -61,8 +71,9 @@
                                 <td colspan="6">
                                     <div class="row">
                                         <div class="col-12 center">
-                                            <form id="process_pdf" method="post" action="#" target="_blank">
-                                                <input type="submit" name="submitForm" class="btn btn-danger" value="Generate PDF">
+                                            <form id="process_pdf" method="post" action="generate.php" target="_blank">
+                                                <input id="inObjectForm" type="hidden" name="bookOBJ" value="">
+                                                <input type="submit" name="submitFormBookOrder" class="btn btn-danger" value="Generate PDF">
                                             </form>
                                         </div>
                                     </div>
@@ -74,25 +85,39 @@
                 <div class="col-md-2"></div>
             </div>
         </div>
-        <!--
-            https://jonsuh.com/blog/javascript-templating-without-a-library/
-            For Native JS Templating
-        
-            https://www.w3resource.com/javascript-exercises/javascript-math-exercise-39.php
-            Math Exercise
-        -->
         <script src="/media/js/bootstrap.js"></script>
         <script src="/media/js/jquery-3.6.0.js"></script>
         <script src="/media/js/select2.min.js"></script>
-        
+        <script src="/media/js/lib.js"></script>
+
         <script type="text/javascript">
             var discount_paper = 0;
             var discount_hard = 0;
+            var grand_total = {paper : 0, hard : 0};
+            var grand_quan = {paper : 0, hard : 0}
+            var grand_price = {paper : 0, hard : 0};
+            var grand_shipping = {paper : 0, hard : 0};
 
             $(function(){
                 $("#paper_row").hide();
                 $("#hard_row").hide();
                 $("#generate_row").hide();
+            });
+
+            $("#process_pdf").submit(function(e){
+                var obj = {
+                    type        : $("#order_type").val(),
+                    discount    : {
+                        paper   : discount_paper,
+                        hard    : discount_hard
+                    },
+                    quantity    : grand_quan,
+                    price       : grand_price,
+                    shipping    : grand_shipping,
+                    total       : grand_total
+                };
+
+                $("#inObjectForm").val(JSON.stringify(obj));
             });
 
             $("#order_type").change(function(){
@@ -131,13 +156,16 @@
                 var discount = {};
                 discount= getDiscount(val);
                 discount_paper = parseInt(discount.paperback);
+                grand_quan.paper = val;
 
                 $("#paper_avd").html(discount_paper + "%")
 
                 if(price > 0){
                     var quan = $(this).val() ? parseInt($(this).val()) : 0;
+                    var shipping = $("#paper_shipping").val() ? parseFloat($("#paper_shipping").val()) : 0;
                     var dis = discount_paper / 100;
-                    var total = quan * price - (quan * price * dis);
+                    var total = quan * price - (quan * price * dis) + shipping;
+                    grand_total.paper = total;
 
                     $("#paper_total").html("$" + numFormat(total.toFixed(2)));
                 }
@@ -145,11 +173,77 @@
 
             $("#hard_quan").on('keyup',function(){
                 var val = $(this).val() ? parseInt($(this).val()) : 0;
+                var price = $("#hard_price").val() ? parseFloat($("#hard_price").val()) : 0;
                 var discount = {};
                 discount= getDiscount(val);
                 discount_hard = discount.hardcover ;
+                grand_quan.hard = val;
 
                 $("#hard_avd").html(discount.hardcover + "%")
+
+                if(price > 0){
+                    var quan = $(this).val() ? parseInt($(this).val()) : 0;
+                    var shipping = $("#hard_shipping").val() ? parseFloat($("#hard_shipping").val()) : 0;
+                    var dis = discount_hard / 100;
+                    var total = quan * price - (quan * price * dis) + shipping;
+                    grand_total.hard = total;
+
+                    $("#hard_total").html("$" + numFormat(total.toFixed(2)));
+                }
+            });
+
+            $("#paper_price").on('keyup',function(){
+                var paper_quan = $("#paper_quan").val() ? parseInt($("#paper_quan").val()) : 0;
+                var price = $(this).val() ? parseFloat($(this).val()) : 0;
+                grand_price.paper = price;
+
+                if(paper_quan > 0){
+                    var shipping = $("#paper_shipping").val() ? parseFloat($("#paper_shipping").val()) : 0;
+                    var dis = discount_paper / 100;
+                    var total = paper_quan * price - (paper_quan * price * dis) + shipping;
+                    grand_total.paper = total;
+
+                    $("#paper_total").html("$" + numFormat(total.toFixed(2)));
+                }
+            });
+
+            $("#hard_price").on('keyup',function(){
+                var hard_quan = $("#hard_quan").val() ? parseInt($("#hard_quan").val()) : 0;
+                var price = $(this).val() ? parseFloat($(this).val()) : 0;
+                grand_price.hard = price;
+
+                if(hard_quan > 0){
+                    var shipping = $("#hard_shipping").val() ? parseFloat($("#hard_shipping").val()) : 0;
+                    var dis = discount_hard / 100;
+                    var total = hard_quan * price - (hard_quan * price * dis) + shipping;
+                    grand_total.hard = total;
+
+                    $("#hard_total").html("$" + numFormat(total.toFixed(2)));
+                }
+            });
+
+            $("#paper_shipping").on('keyup',function(){
+                var paper_quan = $("#paper_quan").val() ? parseInt($("#paper_quan").val()) : 0;
+                var price = $("#paper_price").val() ? parseFloat($("#paper_price").val()) : 0;
+                var shipping = $(this).val() ? parseFloat($(this).val()) : 0;
+                var dis = discount_paper / 100;
+                var total = paper_quan * price - (paper_quan * price * dis) + shipping;
+                grand_total.paper = total;
+                grand_shipping.paper = shipping;
+
+                $("#paper_total").html("$" + numFormat(total.toFixed(2)));
+            });
+
+            $("#hard_shipping").on('keyup',function(){
+                var hard_quan = $("#hard_quan").val() ? parseInt($("#hard_quan").val()) : 0;
+                var price = $("#hard_price").val() ? parseFloat($("#hard_price").val()) : 0;
+                var shipping = $(this).val() ? parseFloat($(this).val()) : 0;
+                var dis = discount_hard / 100;
+                var total = hard_quan * price - (hard_quan * price * dis) + shipping;
+                grand_total.hard = total;
+                grand_shipping.hard = shipping;
+
+                $("#hard_total").html("$" + numFormat(total.toFixed(2)));
             });
 
             function getDiscount(dis){
@@ -193,16 +287,6 @@
                     paperback   : obj_paper
                 }
             }
-
-            function numFormat(num){
-                var num_parts = num.toString().split(".");
-
-                num_parts[0] = num_parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-                return num_parts.join(".");
-            }
-
         </script>
-        
-
     </body>
 </html>
