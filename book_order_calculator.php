@@ -81,6 +81,7 @@
                 </div>
                 <div class="col-md-2"></div>
             </div>
+            <div class="shadow-none p-3 mb-5 bg-light rounded">We are still in development stage and in Beta Testing of our Sales Calculators. This Project is hosted in our Testing and Development Server (192.168.1.44). We will deploy this to the Final Production Server after the Final Approval of this Project from Our Sales Manager. Thank you.</div>
         </div>
         <script src="/media/js/bootstrap.js"></script>
         <script src="/media/js/jquery-3.6.0.js"></script>
