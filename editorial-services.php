@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Product Savings Calculator V1.0</title>
+        <title>Editorial Services Calculator V1.0</title>
         <link rel="stylesheet" href="/media/css/bootstrap.css">
         <link rel="stylesheet" href="/media/css/select2.min.css">
         <link rel="stylesheet" href="/media/css/custom.css">
@@ -14,9 +14,9 @@
                         <div class="container-fluid">
                             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                                 <div class="navbar-nav">
-                                    <a class="nav-link bold active underline" aria-current="page" href="/">Product Savings Calculator</a>
+                                    <a class="nav-link bold" href="/">Product Savings Calculator</a>
                                     <a class="nav-link bold" href="/book_order_calculator.php">Book Order Calculator</a>
-                                    <a class="nav-link bold" href="/editorial-services.php">Editorial Services Calculator</a>
+                                    <a class="nav-link bold active underline" aria-current="page" href="/editorial-services.php">Editorial Services Calculator</a>
                                 </div>
                             </div>
                         </div>
@@ -29,11 +29,6 @@
                     <table id="main-table" class="table table-bordered">
                         <tr>
                             <td colspan="6">&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td class="bold right" colspan="4">Discount&nbsp;&nbsp;<input id="discount_com" type="text">&nbsp;%</td>
-                            <td></td>
                         </tr>
                         <tr>
                             <td class="solid s-blue text-white bg-danger center bold" colspan="3">Actual Price</td>
@@ -95,7 +90,7 @@
                                         <div class="col-3">
                                             <form id="process_pdf" method="post" action="generate.php" target="_blank">
                                                 <input id="form_obj_holder" type="hidden" name="form_obj" value="">
-                                                <input type="hidden" id="for_discount_info" value="1">
+                                                <input type="hidden" id="for_discount_info" value="0">
                                                 <input type="submit" name="submitFormIndex" class="btn btn-danger" value="Generate PDF">
                                             </form>
                                         </div>
@@ -167,7 +162,7 @@
             <?php 
                 require_once 'lib/conn.php';
                 $mysql = new Conn();
-                $results = $mysql->getResults("SELECT * FROM `calculator` where `type` <> 1 ORDER BY `product` ASC");
+                $results = $mysql->getResults("SELECT * FROM `calculator` where `type` = 1 ORDER BY `id` ASC");
                 foreach($results as $result):
             ?>
                 <option value="<?php echo $result->gross ?>" data-net="<?php echo $result->net ?>" data-unit="<?php echo $result->unit ?>"><?php echo $result->product ?></option>

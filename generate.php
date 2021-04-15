@@ -57,22 +57,30 @@ class PDF extends FPDF{
         $this->SetLineWidth(.1);
         $this->SetFont('Arial','B',10);
 
-        $discount = $obj->discount."%";
+        if($obj->for_discount == 1){
+            $discount = $obj->discount."%";
+            $this->Cell(20,7,'','L',0,'C',true);
+            $this->Cell(70,7,'',0,0,'C',true);  
+            $this->Cell(20,7,'',0,0,'C',true);
+            $this->Cell(25,7,'',0,0,'C',true);
+            $this->Cell(25,7,'Discount',0,0,'R',true);
+            $this->Cell(25,7,$discount,1,0,'C',true);
+            $this->Ln();
+
+        }
+
+        
         $this->Cell(20,7,'','L',0,'C',true);
         $this->Cell(70,7,'',0,0,'C',true);  
         $this->Cell(20,7,'',0,0,'C',true);
         $this->Cell(25,7,'',0,0,'C',true);
-        $this->Cell(25,7,'Discount',0,0,'R',true);
-        $this->Cell(25,7,$discount,1,0,'C',true);
+        $this->Cell(25,7,'',0,0,'C',true);
+        if($obj->for_discount == 1)
+            $this->Cell(25,7,'','TR',0,'C',true);
+        else
+            $this->Cell(25,7,'','R',0,'C',true);
         $this->Ln();
 
-        $this->Cell(20,7,'','L',0,'C',true);
-        $this->Cell(70,7,'',0,0,'C',true);  
-        $this->Cell(20,7,'',0,0,'C',true);
-        $this->Cell(25,7,'',0,0,'C',true);
-        $this->Cell(25,7,'',0,0,'C',true);
-        $this->Cell(25,7,'','TR',0,'C',true);
-        $this->Ln();
 
         $this->SetFillColor(220,53,69);
         $this->SetTextColor(248,249,250);
@@ -163,8 +171,8 @@ class PDF extends FPDF{
         $this->SetLineWidth(.1);
         $this->SetFont('Arial','B',12);
         $this->Cell(20,7,'#',1,0,'C',true);
-        $this->Cell(70,7,'Product',1,0,'C',true);  
-        $this->Cell(20,7,'Quantity',1,0,'C',true);
+        $this->Cell(60,7,'Product',1,0,'C',true);  
+        $this->Cell(30,7,'Quantity',1,0,'C',true);
         $this->Cell(25,7,'Gross',1,0,'C',true);
         $this->Cell(25,7,'Net',1,0,'C',true);
         $this->Cell(25,7,'Price',1,0,'C',true);
@@ -180,12 +188,13 @@ class PDF extends FPDF{
             $prod = $obj->products[$i]->desc;
             $quan = $obj->products[$i]->quan;
             $quan = number_format($quan,0,".",",");
+            $quan .= $obj->products[$i]->unit ? " ".$obj->products[$i]->unit : '';
             $gross = "$".number_format($obj->products[$i]->gross,2,".",",");
             $net = "$".number_format($obj->products[$i]->net,2,".",",");
             $price = "$".number_format($obj->products[$i]->price,2,".",",");
             $this->Cell(20,7,$id,1,0,'L',true);
-            $this->Cell(70,7,$prod,1,0,'L',true);  
-            $this->Cell(20,7,$quan,1,0,'C',true);
+            $this->Cell(60,7,$prod,1,0,'L',true);  
+            $this->Cell(30,7,$quan,1,0,'C',true);
             $this->Cell(25,7,$gross,1,0,'R',true);
             $this->Cell(25,7,$net,1,0,'R',true);
             $this->Cell(25,7,$price,1,0,'R',true);

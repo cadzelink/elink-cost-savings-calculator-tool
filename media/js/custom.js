@@ -18,19 +18,21 @@ $("#process_pdf").submit(function(e){
             net     : $("#gross-com-" + i).attr('data-prod_net'),
             desc    : $("#gross-com-" + i).attr('data-prod_desc'),
             price   : parseFloat($("#gross-com-" + i).attr('data-prod_net')) * quantity,
+            unit    : $("#gross-com-" + i).attr('data-unit'),
             quan    : quantity
         };
         products.push(product);
     }
     var pdf_obj = {
-        products    : products,
-        count       : num_count,
-        gross_sales : $("#gross_hidden_val").val() ? parseFloat($("#gross_hidden_val").val()) : 0,
-        partial_net : $("#partial_hidden_txt").val() ? parseFloat($("#partial_hidden_txt").val()) : 0,
-        total_net   : $("#total_hidden_net").val() ? parseFloat($("#total_hidden_net").val()) : 0,
-        savings     : $("#hidden_savings").val() ? parseFloat($("#hidden_savings").val()) : 0,
-        percentage  : $("#hidden_percentage").val() ? parseFloat($("#hidden_percentage").val()) : 0,
-        discount    : $("#discount_com").val() ? $("#discount_com").val() : 0
+        products        : products,
+        count           : num_count,
+        gross_sales     : $("#gross_hidden_val").val() ? parseFloat($("#gross_hidden_val").val()) : 0,
+        partial_net     : $("#partial_hidden_txt").val() ? parseFloat($("#partial_hidden_txt").val()) : 0,
+        total_net       : $("#total_hidden_net").val() ? parseFloat($("#total_hidden_net").val()) : 0,
+        savings         : $("#hidden_savings").val() ? parseFloat($("#hidden_savings").val()) : 0,
+        percentage      : $("#hidden_percentage").val() ? parseFloat($("#hidden_percentage").val()) : 0,
+        discount        : $("#discount_com").val() ? $("#discount_com").val() : 0,
+        for_discount    : parseInt($("#for_discount_info").val())
     };
     
     $("#form_obj_holder").val(JSON.stringify(pdf_obj));
@@ -57,13 +59,15 @@ function computePrice(obj){
     var gross = $("#select-" + row).val();
     var gross_total = gross * quan;
     var net = parseFloat($("#select-" + row).find(":selected").data("net"));
+    var unit = $("#select-" + row).find(":selected").data("unit");
     var desc = $("#select-" + row).find(":selected").text();
     var price = net * quan;
-    
+
     $("#gross-com-" + row).attr('data-com_val_gross',gross_total);
     $("#gross-com-" + row).attr('data-prod_gross',gross);
     $("#gross-com-" + row).attr('data-prod_net',net);
     $("#gross-com-" + row).attr('data-prod_desc',desc);
+    $("#gross-com-" + row).attr('data-unit',unit);
     $("#price_netcom_" + row).attr('data-com_priceNetCom',price);
     $("#row-" + row + " .gross-com").html("$" + numFormat(gross_total.toFixed(2)));
     $("#row-" + row + " .net-com").html("$" + numFormat(net.toFixed(2)));

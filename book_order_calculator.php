@@ -14,6 +14,7 @@
                         <div class="navbar-nav">
                             <a class="nav-link" href="/">Product Savings Calculator</a>
                             <a class="nav-link  bold active underline" aria-current="page" href="/book_order_calculator.php">Book Order Calculator </a>
+                            <a class="nav-link bold" href="/editorial-services.php">Editorial Services Calculator</a>
                         </div>
                     </div>
                 </div>
