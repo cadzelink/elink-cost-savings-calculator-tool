@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.1
--- https://www.phpmyadmin.net/
+-- version 4.5.4.1deb2ubuntu2.1
+-- http://www.phpmyadmin.net
 --
--- Host: 127.0.0.1
--- Generation Time: Apr 15, 2021 at 11:16 AM
--- Server version: 10.4.11-MariaDB
--- PHP Version: 7.4.3
+-- Host: localhost
+-- Generation Time: Apr 15, 2021 at 04:00 PM
+-- Server version: 5.7.33-0ubuntu0.16.04.1
+-- PHP Version: 7.2.34-18+ubuntu16.04.1+deb.sury.org+1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 --
@@ -25,11 +23,11 @@ SET time_zone = "+00:00";
 CREATE TABLE `calculator` (
   `id` int(10) UNSIGNED NOT NULL,
   `product` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
-  `gross` decimal(7,2) NOT NULL DEFAULT 0.00,
-  `net` decimal(7,2) NOT NULL DEFAULT 0.00,
+  `gross` decimal(7,2) NOT NULL DEFAULT '0.00',
+  `net` decimal(7,2) NOT NULL DEFAULT '0.00',
   `unit` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-  `type` tinyint(4) NOT NULL DEFAULT 0,
-  `status` tinyint(4) NOT NULL DEFAULT 1
+  `type` tinyint(4) NOT NULL DEFAULT '0',
+  `status` tinyint(4) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -152,4 +150,3 @@ ALTER TABLE `calculator`
 --
 ALTER TABLE `calculator`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=95;
-COMMIT;
