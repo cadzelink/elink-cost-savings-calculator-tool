@@ -171,7 +171,7 @@
                 $results = $mysql->getResults("SELECT * FROM `calculator` where `type` <> 1 ORDER BY `product` ASC");
                 foreach($results as $result):
             ?>
-                <option value="<?php echo $result->gross ?>" data-net="<?php echo $result->net ?>" data-unit="<?php echo $result->unit ?>"><?php echo $result->product ?></option>
+                <option value="<?php echo $result->gross ?>" data-net="<?php echo $result->net ?>" data-unit="<?php echo $result->unit ?>"><?php echo $result->type == 2 ? "DMPR>" : ""; echo $result->product; ?></option>
             <?php
                 endforeach;
                 $mysql->close();
