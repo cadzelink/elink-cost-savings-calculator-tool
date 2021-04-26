@@ -32,7 +32,8 @@ $("#process_pdf").submit(function(e){
         savings         : $("#hidden_savings").val() ? parseFloat($("#hidden_savings").val()) : 0,
         percentage      : $("#hidden_percentage").val() ? parseFloat($("#hidden_percentage").val()) : 0,
         discount        : $("#discount_com").val() ? $("#discount_com").val() : 0,
-        for_discount    : parseInt($("#for_discount_info").val())
+        for_discount    : parseInt($("#for_discount_info").val()),
+        editorial       : 0,
     };
     
     $("#form_obj_holder").val(JSON.stringify(pdf_obj));

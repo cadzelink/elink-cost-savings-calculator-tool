@@ -191,10 +191,10 @@
                 for(i = 1; i <= num_count; i++){
                     var quantity = parseFloat($("#quan-" + i).val());
                     product = {
-                        gross   : parseFloat($("#gross-com-" + i).attr('data-prod_gross')) * quantity,
-                        net     : $("#gross-com-" + i).attr('data-prod_net'),
+                        gross   : parseFloat($("#word-count-" + i).val()),
+                        net     : $("#gross-com-" + i).attr('data-prod_gross'),
                         desc    : $("#gross-com-" + i).attr('data-prod_desc'),
-                        price   : parseFloat($("#gross-com-" + i).attr('data-prod_net')) * quantity,
+                        price   : $("#gross-com-" + i).attr('data-prod_net'),
                         unit    : $("#gross-com-" + i).attr('data-unit'),
                         quan    : quantity
                     };
@@ -209,7 +209,8 @@
                     savings         : $("#hidden_savings").val() ? parseFloat($("#hidden_savings").val()) : 0,
                     percentage      : $("#hidden_percentage").val() ? parseFloat($("#hidden_percentage").val()) : 0,
                     discount        : $("#discount_com").val() ? $("#discount_com").val() : 0,
-                    for_discount    : parseInt($("#for_discount_info").val())
+                    for_discount    : parseInt($("#for_discount_info").val()),
+                    editorial       : 1
                 };
                 
                 $("#form_obj_holder").val(JSON.stringify(pdf_obj));
@@ -234,7 +235,7 @@
                 Sample Computation
                     •	Page count (manual input of info)
                     •	Word count (manual input of info)
-                    •	Price (default with /word – sample $0.010/word)
+                    •	Price per Word (Net)
                     •	Total (computation) = 258 x 250 = 64500 x $0.01 = $645
 
             */
@@ -246,6 +247,7 @@
                 var gross = $("#select-" + row).val();
                 
                 var net = parseFloat($("#select-" + row).find(":selected").data("net"));
+                var price_view = net;
                 var gross_total = quan * count * net;
                 net = gross_total;
                 var unit = $("#select-" + row).find(":selected").data("unit");
@@ -259,8 +261,8 @@
                 $("#gross-com-" + row).attr('data-unit',unit);
                 $("#price_netcom_" + row).attr('data-com_priceNetCom',price);
                 //$("#row-" + row + " .gross-com").html("$" + numFormat(gross_total.toFixed(2)));
-                $("#row-" + row + " .net-com").html("$" + numFormat(net.toFixed(2)));
-                $("#row-" + row + " .price-com").html("$" + numFormat(price.toFixed(2)));
+                $("#row-" + row + " .net-com").html("$" + numFormat(price_view.toFixed(3)));
+                $("#row-" + row + " .price-com").html("$" + numFormat(net.toFixed(2)));
                 
                 var i = 0;
                 var final_gross = 0;
@@ -283,6 +285,9 @@
                     computePrice(this);
                 });
                 $("#quan-" + num_count).on('keyup',function(){
+                    computePrice(this);
+                });
+                $("#word-count-" + num_count).on('keyup',function(){
                     computePrice(this);
                 });
             }

@@ -180,10 +180,10 @@ class PDF extends FPDF{
         $this->SetFont('Arial','B',12);
         $this->Cell(20,7,'#',1,0,'C',true);
         $this->Cell(75,7,'Product',1,0,'C',true);  
-        $this->Cell(30,7,'Quantity',1,0,'C',true);
-        $this->Cell(20,7,'Gross',1,0,'C',true);
-        $this->Cell(20,7,'Net',1,0,'C',true);
-        $this->Cell(20,7,'Price',1,0,'C',true);
+        $this->Cell(30,7,$obj->editorial ? 'Page Count' : 'Quantity',1,0,'C',true);
+        $this->Cell(20,7,$obj->editorial ? "Word Cnt" : 'Gross',1,0,'C',true);
+        $this->Cell(20,7,$obj->editorial ? "Price" : 'Net',1,0,'C',true);
+        $this->Cell(20,7,$obj->editorial ? "Total" : 'Price',1,0,'C',true);
         $this->Ln();
 
         $this->SetFillColor(255,255,255);
@@ -196,14 +196,15 @@ class PDF extends FPDF{
             $prod = $obj->products[$i]->desc;
             $quan = $obj->products[$i]->quan;
             $quan = number_format($quan,0,".",",");
-            $quan .= $obj->products[$i]->unit ? " ".$obj->products[$i]->unit : '';
-            $gross = "$".number_format($obj->products[$i]->gross,2,".",",");
-            $net = "$".number_format($obj->products[$i]->net,2,".",",");
+            $quan .= $obj->products[$i]->unit && $obj->editorial == 0 ? " ".$obj->products[$i]->unit : '';
+            $gross = $obj->editorial == 0 ? "$".number_format($obj->products[$i]->gross,2,".",",") : $obj->products[$i]->gross ;
+            $net = "$";
+            $net .= $obj->editorial ? number_format($obj->products[$i]->net,3,".",",")."/word" : number_format($obj->products[$i]->net,2,".",",");
             $price = "$".number_format($obj->products[$i]->price,2,".",",");
             $this->Cell(20,7,$id,1,0,'L',true);
             $this->Cell(75,7,$prod,1,0,'L',true);  
             $this->Cell(30,7,$quan,1,0,'C',true);
-            $this->Cell(20,7,$gross,1,0,'R',true);
+            $this->Cell(20,7,$gross,1,0,'C',true);
             $this->Cell(20,7,$net,1,0,'R',true);
             $this->Cell(20,7,$price,1,0,'R',true);
             $this->Ln();
