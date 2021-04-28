@@ -95,23 +95,57 @@
                                             </form>
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-sm-12">&nbsp;</div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-12">&nbsp;</div>
-                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="6">Example:</td>
+                            </tr>
+                            <tr>
+                                <th class="bg-secondary text-white center">#</th>
+                                <th class="bg-secondary text-white center">Product</th>
+                                <th class="bg-secondary text-white center">Page Count</th>
+                                <th class="bg-secondary text-white center">Word Count/Page (FC/BW)</th>
+                                <th class="bg-secondary text-white center">Price</th>
+                                <th class="bg-secondary text-white center">Total</th>
+                            </tr>
+                            <tr>
+                                <td class="center">Product</td>
+                                <td class="center">Copyediting (60,000 to 120,000)</td>
+                                <td class="center">258</td>
+                                <td class="center">250</td>
+                                <td class="center">$0.010/word</td>
+                                <td class="center">$645.00</td>
+                            </tr>
+                            <tr class="font_c">
+                                <td class="bold h_gray center">Page Count</td>
+                                <td colspan="5" class="h_gray">(manual input of info)</td>
+                            </tr>
+                            <tr class="font_c">
+                                <td class="bold h_gray center">Word Count</td>
+                                <td colspan="5" class="h_gray">(manual input of info)</td>
+                            </tr>
+                            <tr class="font_c">
+                                <td class="bold h_gray center">Price</td>
+                                <td colspan="5" class="h_gray">(default with /word – sample $0.010/word)</td>
+                            </tr>
+                            <tr class="font_c">
+                                <td class="bold h_gray center">Total</td>
+                                <td colspan="5" class="h_gray">(computation) = 258 x 250 = 64500 x $0.01 = $645</td>
+                            </tr>
+
+                            <tr>
+                                <td colspan="6">
                                     <div class="row font_c h_red">
                                         <div class="col-sm-2 bold">Terms</div>
                                         <div class="col-sm-10 bold">Definition</div>
                                     </div>
                                     <div class="row font_c">
                                         <div class="col-sm-2 bold h_gray">Gross</div>
-                                        <div class="col-sm-10 h_gray">Sum price of ala carte service ; including complimentary service ; without  discount</div>
+                                        <div class="col-sm-10 h_gray">Sum price of ala carte service; including complimentary service; without  discount</div>
                                     </div>
                                     <div class="row font_c">
                                         <div class="col-sm-2 bold h_gray">Partial Net</div>
-                                        <div class="col-sm-10 h_gray">Sum price of discounted bundle ; without discount</div>
+                                        <div class="col-sm-10 h_gray">Sum price of discounted bundle; without discount</div>
                                     </div>
                                     <div class="row font_c">
                                         <div class="col-sm-2 bold h_gray">Total Net</div>
