@@ -1,18 +1,96 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.4.1deb2ubuntu2.1
--- http://www.phpmyadmin.net
+-- version 4.9.1
+-- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Apr 21, 2021 at 02:59 PM
--- Server version: 5.7.33-0ubuntu0.16.04.1
--- PHP Version: 7.2.34-18+ubuntu16.04.1+deb.sury.org+1
+-- Host: 127.0.0.1
+-- Generation Time: Apr 30, 2021 at 12:52 AM
+-- Server version: 10.4.8-MariaDB
+-- PHP Version: 7.3.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 --
 -- Database: `rm_sales`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `book_price`
+--
+
+CREATE TABLE `book_price` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `package` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `cover` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `size` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `cover_cost` decimal(5,2) NOT NULL,
+  `cost_per_page` decimal(6,3) NOT NULL,
+  `status` tinyint(4) NOT NULL DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `book_price`
+--
+
+INSERT INTO `book_price` (`id`, `package`, `cover`, `size`, `cover_cost`, `cost_per_page`, `status`) VALUES
+(1, 'Black and White Packages', 'B&W Paperback', '5 x 8', '1.12', '0.012', 1),
+(2, 'Black and White Packages', 'B&W Paperback', '6 x 9', '1.12', '0.012', 1),
+(3, 'Black and White Packages', 'B&W Paperback', '8.5 x 11', '1.12', '0.018', 1),
+(4, 'Black and White Packages', 'B&W Hardcover', '5 x 8', '5.68', '0.012', 1),
+(5, 'Black and White Packages', 'B&W Hardcover', '6 x 9', '5.68', '0.012', 1),
+(6, 'Black and White Packages', 'B&W Hardcover', '8.5 x 11', '5.68', '0.018', 1),
+(7, 'Iron Full Color', 'Standard Paperback', '5 x 8', '1.12', '0.032', 1),
+(8, 'Iron Full Color', 'Standard Paperback', '6 x 9', '1.12', '0.032', 1),
+(9, 'Iron Full Color', 'Standard Paperback', '8.5 x 11', '1.12', '0.050', 1),
+(10, 'Iron Full Color', 'Standard Hardcover', '5 x 8', '5.68', '0.032', 1),
+(11, 'Iron Full Color', 'Standard Hardcover', '6 x 9', '5.68', '0.032', 1),
+(12, 'Iron Full Color', 'Standard Hardcover', '8.5 x 11', '5.68', '0.050', 1),
+(13, 'Bronze Full Color', 'Standard Paperback', '5 x 8', '1.12', '0.032', 1),
+(14, 'Bronze Full Color', 'Standard Paperback', '6 x 9', '1.12', '0.032', 1),
+(15, 'Bronze Full Color', 'Standard Paperback', '8.5 x 11', '1.12', '0.050', 1),
+(16, 'Bronze Full Color', 'Standard Hardcover', '5 x 8', '5.68', '0.032', 1),
+(17, 'Bronze Full Color', 'Standard Hardcover', '6 x 9', '5.68', '0.032', 1),
+(18, 'Bronze Full Color', 'Standard Hardcover', '8.5 x 11', '5.68', '0.050', 1),
+(19, 'Silver Full Color', 'Standard Paperback', '5 x 8', '1.12', '0.032', 1),
+(20, 'Silver Full Color', 'Standard Paperback', '6 x 9', '1.12', '0.032', 1),
+(21, 'Silver Full Color', 'Standard Paperback', '8.5 x 11', '1.12', '0.050', 1),
+(22, 'Silver Full Color', 'Standard Hardcover', '5 x 8', '5.68', '0.032', 1),
+(23, 'Silver Full Color', 'Standard Hardcover', '6 x 9', '5.68', '0.032', 1),
+(24, 'Silver Full Color', 'Standard Hardcover', '8.5 x 11', '5.68', '0.050', 1),
+(25, 'Folklore', 'Standard Paperback', '5 x 8', '1.12', '0.032', 1),
+(26, 'Folklore', 'Standard Paperback', '6 x 9', '1.12', '0.032', 1),
+(27, 'Folklore', 'Standard Paperback', '8.5 x 11', '1.12', '0.050', 1),
+(28, 'Folklore', 'Standard Hardcover', '5 x 8', '5.68', '0.032', 1),
+(29, 'Folklore', 'Standard Hardcover', '6 x 9', '5.68', '0.032', 1),
+(30, 'Folklore', 'Standard Hardcover', '8.5 x 11', '5.68', '0.050', 1),
+(31, 'Fairytale', 'Standard Paperback', '5 x 8', '1.12', '0.032', 1),
+(32, 'Fairytale', 'Standard Paperback', '6 x 9', '1.12', '0.032', 1),
+(33, 'Fairytale', 'Standard Paperback', '8.5 x 11', '1.12', '0.050', 1),
+(34, 'Fairytale', 'Standard Hardcover', '5 x 8', '5.68', '0.032', 1),
+(35, 'Fairytale', 'Standard Hardcover', '6 x 9', '5.68', '0.032', 1),
+(36, 'Fairytale', 'Standard Hardcover', '8.5 x 11', '5.68', '0.050', 1),
+(37, 'Gold Full Color', 'Premuim Paperback', '5 x 8', '1.12', '0.068', 1),
+(38, 'Gold Full Color', 'Premuim Paperback', '6 x 9', '1.12', '0.068', 1),
+(39, 'Gold Full Color', 'Premuim Paperback', '8.5 x 11', '1.12', '0.091', 1),
+(40, 'Gold Full Color', 'Premuim Hardcover', '5 x 8', '5.68', '0.068', 1),
+(41, 'Gold Full Color', 'Premuim Hardcover', '6 x 9', '5.68', '0.068', 1),
+(42, 'Gold Full Color', 'Premuim Hardcover', '8.5 x 11', '5.68', '0.091', 1),
+(43, 'Platinum Full Color', 'Premuim Paperback', '5 x 8', '1.12', '0.068', 1),
+(44, 'Platinum Full Color', 'Premuim Paperback', '6 x 9', '1.12', '0.068', 1),
+(45, 'Platinum Full Color', 'Premuim Paperback', '8.5 x 11', '1.12', '0.091', 1),
+(46, 'Platinum Full Color', 'Premuim Hardcover', '5 x 8', '5.68', '0.068', 1),
+(47, 'Platinum Full Color', 'Premuim Hardcover', '6 x 9', '5.68', '0.068', 1),
+(48, 'Platinum Full Color', 'Premuim Hardcover', '8.5 x 11', '5.68', '0.091', 1),
+(49, 'Fantasy', 'Premuim Paperback', '5 x 8', '1.12', '0.068', 1),
+(50, 'Fantasy', 'Premuim Paperback', '6 x 9', '1.12', '0.068', 1),
+(51, 'Fantasy', 'Premuim Paperback', '8.5 x 11', '1.12', '0.091', 1),
+(52, 'Fantasy', 'Premuim Hardcover', '5 x 8', '5.68', '0.068', 1),
+(53, 'Fantasy', 'Premuim Hardcover', '6 x 9', '5.68', '0.068', 1),
+(54, 'Fantasy', 'Premuim Hardcover', '8.5 x 11', '5.68', '0.091', 1);
 
 -- --------------------------------------------------------
 
@@ -23,11 +101,11 @@ SET time_zone = "+00:00";
 CREATE TABLE `calculator` (
   `id` int(10) UNSIGNED NOT NULL,
   `product` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
-  `gross` decimal(8,3) NOT NULL DEFAULT '0.000',
-  `net` decimal(8,3) NOT NULL DEFAULT '0.000',
+  `gross` decimal(8,3) NOT NULL DEFAULT 0.000,
+  `net` decimal(8,3) NOT NULL DEFAULT 0.000,
   `unit` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-  `type` tinyint(4) NOT NULL DEFAULT '0',
-  `status` tinyint(4) NOT NULL DEFAULT '1'
+  `type` tinyint(4) NOT NULL DEFAULT 0,
+  `status` tinyint(4) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -472,6 +550,12 @@ INSERT INTO `calculator` (`id`, `product`, `gross`, `net`, `unit`, `type`, `stat
 --
 
 --
+-- Indexes for table `book_price`
+--
+ALTER TABLE `book_price`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `calculator`
 --
 ALTER TABLE `calculator`
@@ -483,7 +567,14 @@ ALTER TABLE `calculator`
 --
 
 --
+-- AUTO_INCREMENT for table `book_price`
+--
+ALTER TABLE `book_price`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
+
+--
 -- AUTO_INCREMENT for table `calculator`
 --
 ALTER TABLE `calculator`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=432;
+COMMIT;
