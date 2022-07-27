@@ -26,7 +26,7 @@
               <li><a class="dropdown-item" href="#">Profile</a></li>
               <li><a class="dropdown-item" href="#">Change Password</a></li>
               <li>
-                <form action="" method="post">
+                <form action="{{route('logout')}}" method="post">
                     @csrf
                     <button type="submit" class="dropdown-item">Logout</button>
                 </form>

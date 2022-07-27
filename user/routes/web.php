@@ -18,6 +18,14 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/', function () {
         return view('dashboard');
     })->name('dashboard');
+
+    Route::get('/dashboard', function () {
+        return redirect(route('dashboard'));
+    });
+
+    Route::controller(AuthenticationController::class)->group(function(){
+        Route::post('/logout', 'logout')->name('logout');
+    });
 });
 
 Route::middleware(['guest'])->group(function () {
@@ -26,4 +34,5 @@ Route::middleware(['guest'])->group(function () {
         Route::post('/login', 'authenticate')->name('authenticate');
     });
 });
+
 
