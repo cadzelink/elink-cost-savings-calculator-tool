@@ -28,10 +28,13 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/logout', 'logout')->name('logout');
     });
 
-    Route::get('/books', [BookController::class, 'index'])->name('book.index');
+Route::controller(BookController::class)->group(function(){
+    Route::get('/books', 'index')->name('book.index');
+    Route::get('/books/create', 'create')->name('book.create');
+    Route::get('/books/{book}', 'edit')->name('book.edit');
+    Route::post('/books/create', 'store')->name('book.store');
+});
 
-    Route::get('/books/create', [BookController::class, 'create'])->name('book.create');
-    Route::get('/books/{book}', [BookController::class, 'edit'])->name('book.edit');
 });
 
 Route::middleware(['guest'])->group(function () {

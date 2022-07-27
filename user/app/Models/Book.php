@@ -20,4 +20,6 @@ class Book extends Model
         'status'
     ];
 
+    public $timestamps=false;
+
 }
