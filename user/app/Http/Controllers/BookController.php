@@ -18,7 +18,31 @@ class BookController extends Controller
         return view('books.create');
     }
 
+    public function store(Request $request)
+    {
+        $request->validate([
+            'package' => 'required',
+            'cover' => 'required',
+            'size' => 'required',
+            'cover_cost' => 'required',
+            'cost_per_page' => 'required',
+        ]);
+
+        Book::create([
+            'package' => $request->package,
+            'cover' => $request->cover,
+            'size' => $request->size,
+            'cover_cost' => $request->cover_cost,
+            'cost_per_page' => $request->cost_per_page,
+        ]);
+
+        return redirect(route('book.create'))->with('success','Book successfully added to database');
+    }
+
+
     public function edit(Book $book){
         return view('books.edit',compact('book'));
     }
+
+
 }

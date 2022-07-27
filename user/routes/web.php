@@ -29,11 +29,12 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/logout', 'logout')->name('logout');
     });
 
-    Route::get('/books', [BookController::class, 'index'])->name('book.index');
-
-    Route::get('/books/create', [BookController::class, 'create'])->name('book.create');
-    Route::get('/books/{book}', [BookController::class, 'edit'])->name('book.edit');
-
+Route::controller(BookController::class)->group(function(){
+    Route::get('/books', 'index')->name('book.index');
+    Route::get('/books/create', 'create')->name('book.create');
+    Route::get('/books/{book}', 'edit')->name('book.edit');
+    Route::post('/books/create', 'store')->name('book.store');
+});
 
     Route::get('/products', [ProductController::class, 'index'])->name('product.index');
     Route::get('/products/create', [ProductController::class, 'create'])->name('product.create');
