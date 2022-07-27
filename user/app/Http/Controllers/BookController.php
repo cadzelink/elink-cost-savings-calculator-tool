@@ -44,5 +44,26 @@ class BookController extends Controller
         return view('books.edit',compact('book'));
     }
 
+    public function update(Request $request, Book $book)
+    {
+        $request->validate([
+            'package' => 'required',
+            'cover' => 'required',
+            'size' => 'required',
+            'cover_cost' => 'required',
+            'cost_per_page' => 'required',
+        ]);
+
+        $book->update($request->all());
+
+        return redirect()->route('book.edit', ['book'=>$book])->with('success', 'Book successfully update to the database');
+    }
+
+    public function delete(Book $book)
+    {
+        $book->delete();
+
+       return redirect()->route('book.index')->with('success','Book has been successfully deleted from the database');
+    }
 
 }
