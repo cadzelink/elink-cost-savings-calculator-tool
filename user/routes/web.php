@@ -16,12 +16,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/', function () {
+        return redirect(route('dashboard'));
+    });
+    Route::get('/home', function () {
         return view('dashboard');
     })->name('dashboard');
 
-    Route::get('/dashboard', function () {
-        return redirect(route('dashboard'));
-    });
 
     Route::controller(AuthenticationController::class)->group(function(){
         Route::post('/logout', 'logout')->name('logout');
