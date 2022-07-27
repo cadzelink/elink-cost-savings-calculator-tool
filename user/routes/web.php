@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,6 +33,11 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/books/create', [BookController::class, 'create'])->name('book.create');
     Route::get('/books/{book}', [BookController::class, 'edit'])->name('book.edit');
+
+
+    Route::get('/products', [ProductController::class, 'index'])->name('product.index');
+    Route::get('/products/create', [ProductController::class, 'create'])->name('product.create');
+    Route::get('/products/{product}',[ProductController::class, 'edit'])->name('product.edit');
 });
 
 Route::middleware(['guest'])->group(function () {

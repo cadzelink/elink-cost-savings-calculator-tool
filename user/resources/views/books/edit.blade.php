@@ -8,6 +8,7 @@
                 <form action="" method="post" class=" card shadow p-4">
                     <h5 class="text-center">Update Book</h5>
                     @csrf
+                    @method('PUT')
                     <div class="form-group mt-2">
                         <label for="package">Package</label>
                         <input type="text" name="package" id="package" class="form-control" value="{{$book->package}}">
@@ -18,18 +19,18 @@
                     </div>
                     <div class="form-group mt-2">
                         <label for="size">Size</label>
-                        <input type="text" name="size" id="size" class="form-control">
+                        <input type="text" name="size" id="size" class="form-control" value="{{$book->size}}">
                     </div>
                     <div class="form-group mt-2">
                         <label for="cover_cost">Cover Cost</label>
-                        <input type="text" name="cover_cost" id="cover_cost" class="form-control">
+                        <input type="text" name="cover_cost" id="cover_cost" class="form-control" value="{{$book->cover_cost}}">
                     </div>
                     <div class="form-group mt-2">
                         <label for="cost_per_page">Cost Per Page</label>
-                        <input type="text" name="cost_per_page" id="cost_per_page" class="form-control">
+                        <input type="text" name="cost_per_page" id="cost_per_page" class="form-control" value="{{$book->cost_per_page}}">
                     </div>
                     <div class="form-group mt-2">
-                        <button type="submit" class="btn btn-primary">Add Book</button>
+                        <button type="submit" class="btn btn-primary">Update Book</button>
                     </div>
                 </form>
             </div>
