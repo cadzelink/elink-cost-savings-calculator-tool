@@ -1,5 +1,9 @@
 @extends('layouts.authenticated')
 
 @section('pages')
-    dsadsa
+    <div class="container">
+        <div class="row justify-content-center align-content-center" style="height: 80vh">
+            dasdsa
+        </div>
+    </div>
 @endsection
