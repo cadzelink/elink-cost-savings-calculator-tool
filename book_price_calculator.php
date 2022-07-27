@@ -18,6 +18,7 @@
                                     <a class="nav-link bold" href="/book_order_calculator.php">Book Order Calculator</a>
                                     <a class="nav-link bold" aria-current="page" href="/editorial-services.php">Editorial Services Calculator</a>
                                     <a class="nav-link bold active underline" aria-current="page" href="/book_price_calculator.php">Book Price Calculator</a>
+                                    <a class="nav-link bold" href="/products_and_services.php">Products & Services</a>
                                 </div>
                             </div>
                         </div>
@@ -81,7 +82,7 @@
                                 <td id="cover_cost" class="center"></td>
                                 <td id="cost_per_page" class="center"></td>
                                 <td id="gross-com-1" class="gross-com center" data-com_val_gross="0" data-prod_gross="0" data-prod_net="0" data-prod_desc="" data-unit=""></td>
-                                <td class="net-com right"></td>
+                                <td id="with_cover" class="net-com center"></td>
                                 <td id="price_netcom_1" class="price-com right" data-com_priceNetCom="0"></td>
                             </tr>
                         </tbody>
@@ -135,7 +136,7 @@
                 </div>
                 <div class="col-md-2"></div>
             </div>
-            <div class="shadow-none p-3 mb-5 bg-light rounded">We are still in development stage and in Beta Testing of our Sales Calculators. This Project is hosted in our Testing and Development Server (192.168.1.44). We will deploy this to the Final Production Server after the Final Approval of this Project from Our Sales Manager. Thank you.</div>
+            <!-- <div class="shadow-none p-3 mb-5 bg-light rounded">We are still in development stage and in Beta Testing of our Sales Calculators. This Project is hosted in our Testing and Development Server (192.168.1.44). We will deploy this to the Final Production Server after the Final Approval of this Project from Our Sales Manager. Thank you.</div> -->
         </div>
         <!--
             https://jonsuh.com/blog/javascript-templating-without-a-library/
@@ -168,6 +169,11 @@
         
         <script type="text/javascript">
             var num_count = 1;
+            var book_type = "";
+            var cover_cost = 0;
+            var cost_per_page = 0;
+            var x_val = 0;
+            var w_cover;
             
             $(function(){
                 var templateHtml = document.getElementById("product-row-scr").innerHTML; 
@@ -183,12 +189,11 @@
                 for(i = 1; i <= num_count; i++){
                     var quantity = parseFloat($("#quan-" + i).val());
                     product = {
-                        gross   : parseFloat($("#word-count-" + i).val()),
-                        net     : $("#gross-com-" + i).attr('data-prod_gross'),
-                        desc    : $("#gross-com-" + i).attr('data-prod_desc'),
-                        price   : $("#gross-com-" + i).attr('data-prod_net'),
-                        unit    : $("#gross-com-" + i).attr('data-unit'),
-                        quan    : quantity
+                        cover_cost      : cover_cost,
+                        desc            : book_type,
+                        cost_per_page   : cost_per_page,
+                        x               : x_val,
+                        w_cover         : w_cover
                     };
                     products.push(product);
                 }
@@ -202,7 +207,7 @@
                     percentage      : $("#hidden_percentage").val() ? parseFloat($("#hidden_percentage").val()) : 0,
                     discount        : $("#discount_com").val() ? $("#discount_com").val() : 0,
                     for_discount    : parseInt($("#for_discount_info").val()),
-                    editorial       : 1
+                    editorial       : 2
                 };
                 
                 $("#form_obj_holder").val(JSON.stringify(pdf_obj));
@@ -224,80 +229,42 @@
             });
 
            
-            function computePrice(obj){
-                /*
-                var row = $(obj).closest('td').closest('tr').data('row');
-                var count =$("#word-count-"+ row).val()
-                var quan = $("#quan-" + row).val();
-                var gross = $("#select-" + row).val();
-                
-                var net = parseFloat($("#select-" + row).find(":selected").data("net"));
-                var price_view = net;
-                var gross_total = quan * count * net;
-                net = gross_total;
-                var unit = $("#select-" + row).find(":selected").data("unit");
-                var desc = $("#select-" + row).find(":selected").text();
-                var price = net;
-            
-                $("#gross-com-" + row).attr('data-com_val_gross',gross_total);
-                $("#gross-com-" + row).attr('data-prod_gross',gross);
-                $("#gross-com-" + row).attr('data-prod_net',net);
-                $("#gross-com-" + row).attr('data-prod_desc',desc);
-                $("#gross-com-" + row).attr('data-unit',unit);
-                $("#price_netcom_" + row).attr('data-com_priceNetCom',price);
-                //$("#row-" + row + " .gross-com").html("$" + numFormat(gross_total.toFixed(2)));
-                $("#row-" + row + " .net-com").html("$" + numFormat(price_view.toFixed(3)));
-                $("#row-" + row + " .price-com").html("$" + numFormat(net.toFixed(2)));
-                
-                var i = 0;
-                var final_gross = 0;
-                var partial_net = 0;
-                
-                for(i = 1; i <= num_count; i++){
-                    final_gross = parseFloat(final_gross) + parseFloat($("#gross-com-" + i).attr('data-com_val_gross'));
-                    partial_net = parseFloat(partial_net) + parseFloat($("#price_netcom_" + i).attr('data-com_priceNetCom'));
-                }
-                $("#partial_hidden_txt").val(partial_net);
-                $("#gross_hidden_val").val(final_gross);
-                $("#gross-clmn").html("$" + numFormat(final_gross.toFixed(2)));
-                $("#partial-clmn").html("$" + numFormat(partial_net.toFixed(2)));
-                ComputeTotalNet()
-                */
+            function computePrice(){
+                cover_cost = $("#select-1").find(":selected").data("cover_cost");
+                cost_per_page = $("#select-1").find(":selected").data("cost_per_page");
+                x_val = ($("#txt_page_count").val() ? parseInt($("#txt_page_count").val()) : 0) * cost_per_page;
+                w_cover = cover_cost + x_val;
+                var retail = w_cover/(30/100);
+
+                book_type = $("#select-1").find(":selected").text();
+                $("#cover_cost").html("$"+cover_cost);
+                $("#cost_per_page").html("$"+cost_per_page+"/page");
+                $("#gross-com-1").html(parseFloat(x_val).toFixed(2));
+                $("#with_cover").html("$" + parseFloat(w_cover).toFixed(2));
+                $("#price_netcom_1").html("$" + retail.toFixed(2));
+
+                $("#gross-clmn").html("$" + retail.toFixed(2));
+                $("#partial-clmn").html("$" + retail.toFixed(2));
+                $("#total-clmn").html("$" + retail.toFixed(2));
+                $("#actual-clmn").html("$" + retail.toFixed(2));
+
+                $("#gross_hidden_val").val(retail);
+                $("#partial_hidden_txt").val(retail);
+                $("#total_hidden_net").val(retail);
+                $("#discount_com").val(0);
+                $("#hidden_savings").val(0)
             }
             
             function initSelect(){
                 $("#select-" + num_count).select2();
                 $("#select-" + num_count).change(function(){
-                    var cover_cost = $("#select-1").find(":selected").data("cover_cost");
-                    var cost_per_page = $("#select-1").find(":selected").data("cover_cost");
-                    $("#cover_cost").html("$"+cover_cost);
+                    computePrice();
                 });
                 $("#txt_page_count").on('keyup',function(){
-                    computePrice(this);
+                    computePrice();
                 });
             }
             
-            function ComputeTotalNet(){
-                /*
-                var partial = $("#partial_hidden_txt").val() ? parseFloat($("#partial_hidden_txt").val()) : 0;
-                var discount = $("#discount_com").val() ? parseFloat($("#discount_com").val()) : 0;
-                var gross = $("#gross_hidden_val").val() ? parseFloat($("#gross_hidden_val").val()) : 0; 
-                var total_net = 0;
-                var savings = 0;
-                var percentage =0;
-                
-                total_net = partial - (partial * (discount / 100));
-                savings = gross - total_net;
-                percentage = savings > 0 ? savings/total_net * 100 : 0;
-                $("#total_hidden_net").val(total_net);
-                $("#hidden_savings").val(savings);
-                $("#hidden_percentage").val(percentage);
-                $("#total-clmn").html("$" + numFormat(total_net.toFixed(2)));
-                $("#actual-clmn").html("$" + numFormat(total_net.toFixed(2)));
-                $("#savings-clmn").html("$" + numFormat(savings.toFixed(2)));
-                $("#percent-clmn").html(percentage.toFixed(1) + "%");
-                */
-            }
         </script>
     </body>
 </html>

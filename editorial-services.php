@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Editorial Services Calculator V1.0</title>
+        <title>Editorial Services Calculator V1.001</title>
         <link rel="stylesheet" href="/media/css/bootstrap.css">
         <link rel="stylesheet" href="/media/css/select2.min.css">
         <link rel="stylesheet" href="/media/css/custom.css">
@@ -17,6 +17,8 @@
                                     <a class="nav-link bold" href="/">Product Savings Calculator</a>
                                     <a class="nav-link bold" href="/book_order_calculator.php">Book Order Calculator</a>
                                     <a class="nav-link bold active underline" aria-current="page" href="/editorial-services.php">Editorial Services Calculator</a>
+                                    <a class="nav-link bold" href="/book_price_calculator.php">Book Price Calculator</a>
+                                    <a class="nav-link bold" href="/products_and_services.php">Products & Services</a>
                                 </div>
                             </div>
                         </div>
@@ -166,7 +168,7 @@
                 </div>
                 <div class="col-md-2"></div>
             </div>
-            <div class="shadow-none p-3 mb-5 bg-light rounded">We are still in development stage and in Beta Testing of our Sales Calculators. This Project is hosted in our Testing and Development Server (192.168.1.44). We will deploy this to the Final Production Server after the Final Approval of this Project from Our Sales Manager. Thank you.</div>
+            <!-- <div class="shadow-none p-3 mb-5 bg-light rounded">We are still in development stage and in Beta Testing of our Sales Calculators. This Project is hosted in our Testing and Development Server (192.168.1.44). We will deploy this to the Final Production Server after the Final Approval of this Project from Our Sales Manager. Thank you.</div> -->
         </div>
         <!--
             https://jonsuh.com/blog/javascript-templating-without-a-library/
@@ -276,9 +278,16 @@
             
             function computePrice(obj){
                 var row = $(obj).closest('td').closest('tr').data('row');
-                var count =$("#word-count-"+ row).val()
                 var quan = $("#quan-" + row).val();
-                var gross = $("#select-" + row).val();
+                var gross = parseFloat($("#select-" + row).val());
+                
+                if(gross == 2 || gross == 100){
+                    $("#word-count-"+ row).val(1);
+                    $("#word-count-"+ row).attr('disabled',1);
+                }else
+                    $("#word-count-"+ row).removeAttr('disabled')
+                
+                var count =$("#word-count-"+ row).val()
                 
                 var net = parseFloat($("#select-" + row).find(":selected").data("net"));
                 var price_view = net;

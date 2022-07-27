@@ -2,7 +2,7 @@
 class Conn {
     public $server = "localhost";
     public $username = "root";
-    public $password = "";
+    public $password = "L!nuxR00t@)!%";
     public $database = "rm_sales";
     public $conn = NULL;
     
