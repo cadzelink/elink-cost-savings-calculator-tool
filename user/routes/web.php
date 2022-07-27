@@ -17,9 +17,13 @@ use Illuminate\Support\Facades\Route;
 Route::middleware(['auth'])->group(function () {
     Route::get('/', function () {
         return view('welcome');
-    });
+    })->name('dashboard');
 });
 
 Route::middleware(['guest'])->group(function () {
-    Route::get('/login', [AuthenticationController::class, 'index'])->name('login');
+    Route::controller(AuthenticationController::class)->group(function(){
+        Route::get('/login','index')->name('login');
+        Route::post('/login', 'authenticate')->name('authenticate');
+    });
 });
+

@@ -10,7 +10,7 @@
                 {{-- <img src="{{asset('images/readers_magnet.png')}}" height="90" width="90" alt="" srcset=""> --}}
             </div>
             <h6 class="text-center">ELink Systems and Concept Corp</h6>
-            <form action="" method="post" class="card p-4 shadow">
+            <form action="{{route('authenticate')}}" method="post" class="card p-4 shadow">
                 @csrf
                 <div class="form-group my-2">
                     <label for="email">Email</label>
