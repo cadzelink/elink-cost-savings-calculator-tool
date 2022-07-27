@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -38,6 +39,14 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/products', [ProductController::class, 'index'])->name('product.index');
     Route::get('/products/create', [ProductController::class, 'create'])->name('product.create');
     Route::get('/products/{product}',[ProductController::class, 'edit'])->name('product.edit');
+
+
+    Route::controller(UserController::class)->group(function(){
+        Route::get('/profile', 'index')->name('user.profile');
+        Route::post('/profile', 'updateProfile')->name('user.update-profile');
+        Route::get('/profile/change-password', 'editPassword')->name('user.edit-password');
+        Route::post('/profile/change-password', 'updatePassword')->name('user.update-password');
+    });
 });
 
 Route::middleware(['guest'])->group(function () {
