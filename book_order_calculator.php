@@ -17,6 +17,7 @@
                             <a class="nav-link bold" href="/editorial-services.php">Editorial Services Calculator</a>
                             <a class="nav-link bold" href="/book_price_calculator.php">Book Price Calculator</a>
                             <a class="nav-link bold" href="/products_and_services.php">Products & Services</a>
+                            <a class="nav-link bold" href="./user/">Login User</a>
                         </div>
                     </div>
                 </div>
