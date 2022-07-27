@@ -23,8 +23,8 @@
               {{auth()->user()->getFullName()}}
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Profile</a></li>
-              <li><a class="dropdown-item" href="#">Change Password</a></li>
+              <li><a class="dropdown-item" href="{{route('user.profile')}}">Profile</a></li>
+              <li><a class="dropdown-item" href="{{route('user.edit-password')}}">Change Password</a></li>
               <li>
                 <form action="{{route('logout')}}" method="post">
                     @csrf

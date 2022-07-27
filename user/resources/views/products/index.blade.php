@@ -7,7 +7,8 @@
             <div class="card pt-3 mt-1">
                 <div class="d-flex mb-2">
                     <div class="ms-auto">
-                        <a href="{{route('product.create')}}" class="btn btn-primary">Add New Product</a>
+                        <a href="{{route('product.create')}}" class="btn btn-primary">
+                            Add New Product</a>
                     </div>
                 </div>
                 <table class="table table-bordered">
