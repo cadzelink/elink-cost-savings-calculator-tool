@@ -13,7 +13,7 @@
             <a class="nav-link active" aria-current="page" href="{{route('dashboard')}}">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Books</a>
+            <a class="nav-link" href="{{route('book.index')}}">Books</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">Products</a>
