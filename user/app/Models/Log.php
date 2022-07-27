@@ -13,6 +13,7 @@ class Log extends Model
         'user_id',
         'item_id',
         'item_table',
+        'description',
         'action'
     ];
 

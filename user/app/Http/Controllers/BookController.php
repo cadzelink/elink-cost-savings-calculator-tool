@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Logger;
 use App\Models\Book;
+use App\Models\Log;
 use Illuminate\Http\Request;
 
 class BookController extends Controller
@@ -28,12 +30,21 @@ class BookController extends Controller
             'cost_per_page' => 'required',
         ]);
 
-        Book::create([
+        $book = Book::create([
             'package' => $request->package,
             'cover' => $request->cover,
             'size' => $request->size,
             'cover_cost' => $request->cover_cost,
             'cost_per_page' => $request->cost_per_page,
+        ]);
+
+        $description = Logger::generateReport($request->all());
+        Log::create([
+            'user_id' => auth()->user()->id,
+            'item_id' => $book->id,
+            'item_table' => 'book_price',
+            'description' => $description,
+            'action' => Log::$CREATE
         ]);
 
         return redirect(route('book.create'))->with('success','Book successfully added to database');
@@ -56,12 +67,32 @@ class BookController extends Controller
 
         $book->update($request->all());
 
+        $description = Logger::generateReport($book->toArray(), $request->except(['_token', '_method']), Log::$MODIFY);
+        Log::create([
+            'user_id' => auth()->user()->id,
+            'item_id' => $book->id,
+            'item_table' => 'book_price',
+            'description' => $description,
+            'action' => Log::$MODIFY
+        ]);
+
         return redirect()->route('book.edit', ['book'=>$book])->with('success', 'Book successfully update to the database');
     }
 
     public function delete(Book $book)
     {
+        $description = Logger::generateReport($book->toArray(),[],Log::$DELETE);
+        Log::create([
+            'user_id' => auth()->user()->id,
+            'item_id' => $book->id,
+            'item_table' => 'book_price',
+            'description' => $description,
+            'action' => Log::$DELETE
+        ]);
+
         $book->delete();
+
+
 
        return redirect()->route('book.index')->with('success','Book has been successfully deleted from the database');
     }
