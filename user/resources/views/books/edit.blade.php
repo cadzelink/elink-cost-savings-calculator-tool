@@ -10,11 +10,11 @@
                     @csrf
                     <div class="form-group mt-2">
                         <label for="package">Package</label>
-                        <input type="text" name="package" id="package" class="form-control">
+                        <input type="text" name="package" id="package" class="form-control" value="{{$book->package}}">
                     </div>
                     <div class="form-group mt-2">
                         <label for="cover">Cover</label>
-                        <input type="text" name="cover" id="cover" class="form-control">
+                        <input type="text" name="cover" id="cover" class="form-control" value="{{$book->cover}}">
                     </div>
                     <div class="form-group mt-2">
                         <label for="size">Size</label>

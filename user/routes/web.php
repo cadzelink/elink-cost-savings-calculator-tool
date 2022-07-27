@@ -31,6 +31,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/books', [BookController::class, 'index'])->name('book.index');
 
     Route::get('/books/create', [BookController::class, 'create'])->name('book.create');
+    Route::get('/books/{book}', [BookController::class, 'edit'])->name('book.edit');
 });
 
 Route::middleware(['guest'])->group(function () {

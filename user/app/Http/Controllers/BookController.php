@@ -17,4 +17,8 @@ class BookController extends Controller
     {
         return view('books.create');
     }
+
+    public function edit(Book $book){
+        return view('books.edit',compact('book'));
+    }
 }
