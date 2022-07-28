@@ -101,7 +101,7 @@ CREATE TABLE `calculator` (
   `product` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `gross` decimal(8,3) NOT NULL DEFAULT '0.000',
   `net` decimal(8,3) NOT NULL DEFAULT '0.000',
-  `unit` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `unit` varchar(50) COLLATE utf8_unicode_ci ,
   `type` tinyint(4) NOT NULL DEFAULT '0',
   `status` tinyint(4) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;

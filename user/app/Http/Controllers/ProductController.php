@@ -6,6 +6,7 @@ use App\Helpers\Logger;
 use App\Models\Log;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 
 class ProductController extends Controller
 {
@@ -39,10 +40,10 @@ class ProductController extends Controller
             'net' => $request->net,
         ]);
 
-        $description = Logger::generateReport($request->all());
+        $description = Logger::generateReport(Arr::only($request->all(), ['product', 'gross', 'net', 'unit']));
         Log::create([
             'user_id' => auth()->user()->id,
-            'item_id' => $product->id,
+            'item_name' => $product->product,
             'item_table' => 'calculator',
             'description' => $description,
             'action' => Log::$CREATE
@@ -59,26 +60,27 @@ class ProductController extends Controller
             'net' => 'required',
         ]);
 
-        $product->update($request->all());
-
-        $description = Logger::generateReport($product->toArray(), $request->except(['_token', '_method']), Log::$MODIFY);
+        $description = Logger::generateReport(Arr::except($product->toArray(),['id', 'type', 'status']), $request->except(['_token', '_method']), Log::$MODIFY);
         Log::create([
             'user_id' => auth()->user()->id,
-            'item_id' => $product->id,
+            'item_name' => $product->product,
             'item_table' => 'calculator',
             'description' => $description,
             'action' => Log::$MODIFY
         ]);
+
+        $product->update($request->all());
+
 
         return redirect()->route('product.edit', ['product'=>$product])->with('success', 'Product successfully update to the database');
     }
 
     public function delete(Product $product)
     {
-        $description = Logger::generateReport($product->toArray(),[],Log::$DELETE);
+        $description = Logger::generateReport(Arr::except($product->toArray(),['id', 'type', 'status']),[],Log::$DELETE);
         Log::create([
             'user_id' => auth()->user()->id,
-            'item_id' => $product->id,
+            'item_name' => $product->product,
             'item_table' => 'calculator',
             'description' => $description,
             'action' => Log::$DELETE
