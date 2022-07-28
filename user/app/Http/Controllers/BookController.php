@@ -6,6 +6,7 @@ use App\Helpers\Logger;
 use App\Models\Book;
 use App\Models\Log;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 
 class BookController extends Controller
 {
@@ -38,10 +39,10 @@ class BookController extends Controller
             'cost_per_page' => $request->cost_per_page,
         ]);
 
-        $description = Logger::generateReport($request->all());
+        $description = Logger::generateReport(Arr::except($request->all(), ['id','status']));
         Log::create([
             'user_id' => auth()->user()->id,
-            'item_id' => $book->id,
+            'item_name' => $book->package,
             'item_table' => 'book_price',
             'description' => $description,
             'action' => Log::$CREATE
@@ -65,26 +66,27 @@ class BookController extends Controller
             'cost_per_page' => 'required',
         ]);
 
-        $book->update($request->all());
-
-        $description = Logger::generateReport($book->toArray(), $request->except(['_token', '_method']), Log::$MODIFY);
+        $description = Logger::generateReport(Arr::except($book->toArray(),['id','status']), $request->except(['_token', '_method']), Log::$MODIFY);
         Log::create([
             'user_id' => auth()->user()->id,
-            'item_id' => $book->id,
+            'item_name' => $book->package,
             'item_table' => 'book_price',
             'description' => $description,
             'action' => Log::$MODIFY
         ]);
+
+        $book->update($request->all());
+
 
         return redirect()->route('book.edit', ['book'=>$book])->with('success', 'Book successfully update to the database');
     }
 
     public function delete(Book $book)
     {
-        $description = Logger::generateReport($book->toArray(),[],Log::$DELETE);
+        $description = Logger::generateReport(Arr::except($book->toArray(),['id','status']),[],Log::$DELETE);
         Log::create([
             'user_id' => auth()->user()->id,
-            'item_id' => $book->id,
+            'item_name' => $book->package,
             'item_table' => 'book_price',
             'description' => $description,
             'action' => Log::$DELETE

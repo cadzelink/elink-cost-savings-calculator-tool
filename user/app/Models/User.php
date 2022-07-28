@@ -46,4 +46,9 @@ class User extends Authenticatable
     {
         return $this->firstname . ' '. $this->lastname;
     }
+
+    public function log()
+    {
+        return $this->hasMany(Log::class);
+    }
 }

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\LogController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -54,6 +55,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/profile/change-password', 'editPassword')->name('user.edit-password');
         Route::post('/profile/change-password', 'updatePassword')->name('user.update-password');
     });
+
+    Route::get('/logs', [LogController::class, 'index'])->name('log.index');
 });
 
 Route::middleware(['guest'])->group(function () {

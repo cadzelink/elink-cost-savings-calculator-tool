@@ -11,7 +11,7 @@ class Log extends Model
 
     protected $fillable = [
         'user_id',
-        'item_id',
+        'item_name',
         'item_table',
         'description',
         'action'
@@ -21,4 +21,8 @@ class Log extends Model
     public static $MODIFY = 'modify';
     public static $DELETE = 'delete';
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
