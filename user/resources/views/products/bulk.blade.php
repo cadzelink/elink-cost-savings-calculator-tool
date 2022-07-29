@@ -4,9 +4,9 @@
 <div class="container">
     <div class="row justify-content-center align-content-center" style="height: 90vh">
         <div class="col-md-5">
-            <a class="btn btn-outline-primary my-2" href="{{route('book.index')}}">Back</a>
-            <form action="{{route('book.import-file')}}" method="post" enctype="multipart/form-data" class=" card shadow p-4">
-                <h5 class="text-center">Import Book</h5>
+            <a class="btn btn-outline-primary my-2" href="{{route('product.index')}}">Back</a>
+            <form action="{{route('product.import-file')}}" method="post" enctype="multipart/form-data" class=" card shadow p-4">
+                <h5 class="text-center">Import Product</h5>
                 @if ($message = Session::get('success'))
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                     <span>{{ $message }}</span>
@@ -15,14 +15,14 @@
                 @endif
                 @csrf
                 <div class="form-group mt-2">
-                    <label for="file">Import File</label>
+                    <label for="file">File</label>
                     <input type="file" name="file" id="file" class="form-control" >
                     @error('file')
                         <small class="text-danger">{{$message}}</small>
                     @enderror
                 </div>
                 <div class="form-group mt-2">
-                    <button type="submit" class="btn btn-primary">Add Book</button>
+                    <button type="submit" class="btn btn-primary">Import</button>
                 </div>
             </form>
         </div>

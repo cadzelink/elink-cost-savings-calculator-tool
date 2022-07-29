@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\Logger;
+use App\Imports\ProductImport;
 use App\Models\Log;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ProductController extends Controller
 {
@@ -89,4 +91,84 @@ class ProductController extends Controller
 
        return redirect()->route('product.index')->with('success','Product has been successfully deleted from the database');
     }
+
+    public function importPage()
+    {
+        return view('products.bulk');
+    }
+
+    public function import(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|file'
+        ]);
+
+        Excel::import((new ProductImport), $request->file('file')->store('temp'));
+
+        return redirect(route('product.import-list'));
+    }
+
+    public function importList()
+    {
+        if(!session()->get('productSession')){
+            return redirect(route('product.import-page'));
+        }
+
+        $products = session()->get('productSession');
+        // dd($products);
+        return view('products.import_list', compact('products'));
+    }
+
+    public function importCancel()
+    {
+        if(!session()->get('productSession')){
+            return redirect(route('product.import-bulk'));
+        }
+
+        session()->forget('productSession');
+        return redirect(route('product.index'));
+    }
+
+    public function removeList(Request $request)
+    {
+        if(!session()->get('productSession')){
+            return redirect(route('product.import-bulk'));
+        }
+        // GG ko dinhi maong ogma nata mag tiwas >_<
+        $products = session()->get('productSession');
+        for($count = 0; $count < count($products) ; $count++){
+            if($products[$count]['product'] == $request->product){
+                // Arr::pull($products, '0');
+                $products->splice($count, 1);
+                session()->put('productSession', $products);
+            }
+        }
+
+        return back();
+    }
+
+    public function importData(Request $request)
+    {
+        if(!session()->get('productSession')){
+            return redirect(route('product.import-bulk'));
+        }
+
+        $products = session()->get('productSession');
+
+        foreach($products as $product)
+        {
+            Product::create([
+                'product' => $product['product'],
+                'gross' => $product['gross'],
+                'net' => $product['net'],
+                'unit' => $product['unit'],
+                'type' => $product['type'],
+                'status' => $product['status']
+            ]);
+        }
+
+        session()->forget('productSession');
+        return redirect(route('product.import-page'));
+    }
+
 }

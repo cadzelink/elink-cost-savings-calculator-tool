@@ -7,7 +7,7 @@
             <div class="card pt-3 mt-1">
                 <div class="d-flex mb-2">
                     <div class="ms-auto">
-                        <a href="{{route('book.create')}}" class="btn btn-danger">Bulk Import</a>
+                        <a href="{{route('book.import-page')}}" class="btn btn-danger">Bulk Import</a>
                         <a href="{{route('book.create')}}" class="btn btn-primary">Add New Book</a>
                     </div>
                 </div>

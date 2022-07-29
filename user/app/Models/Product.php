@@ -16,7 +16,8 @@ class Product extends Model
         'gross',
         'net',
         'unit',
-        'type'
+        'type',
+        'status'
     ];
 
     public $timestamps = false;
