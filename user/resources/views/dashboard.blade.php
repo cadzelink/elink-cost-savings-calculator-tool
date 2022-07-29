@@ -2,11 +2,10 @@
 
 @section('pages')
     <div class="container">
-                 <!-- Content Row -->
+        <!-- Content Row -->
         <div class="row justify-content-center align-content-center" style="height: 80vh">
 
-
-            <!-- Total No. of Products -->
+            <!-- Total No. of Products Card-->
             <div class="col-xl-3 col-md-6 mb-4">
                 <div class="card border-left-primary shadow h-100 py-2">
                     <div class="card-body">
