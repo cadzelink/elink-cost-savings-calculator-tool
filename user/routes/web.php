@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\LogController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -23,9 +24,7 @@ Route::middleware(['auth'])->group(function () {
         return redirect(route('dashboard'));
     });
 
-    Route::get('/home', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    Route::get('/home', [ReportController::class, 'index'])->name('dashboard');
 
     Route::controller(AuthenticationController::class)->group(function(){
         Route::post('/logout', 'logout')->name('logout');
@@ -70,6 +69,7 @@ Route::middleware(['auth'])->group(function () {
     });
 
     Route::get('/logs', [LogController::class, 'index'])->name('log.index');
+
 });
 
 Route::middleware(['guest'])->group(function () {
