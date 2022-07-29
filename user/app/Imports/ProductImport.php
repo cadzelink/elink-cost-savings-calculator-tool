@@ -33,10 +33,4 @@ class ProductImport implements ToCollection,WithHeadingRow
     {
         return 1;
     }
-
-    public static $TYPES = [
-        ' ',
-        'DMPR',
-        'Book Fair',
-    ];
 }
