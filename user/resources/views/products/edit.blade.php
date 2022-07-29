@@ -2,7 +2,7 @@
 
 @section('pages')
     <div class="container">
-        <div class="row justify-content-center align-content-center" style="height: 90vh">
+        <div class="row justify-content-center my-4" >
             <div class="col-md-5">
                 <a class="btn btn-outline-primary my-2" href="{{route('product.index')}}">Back</a>
                 <form action="{{route('product.update', ['product' => $product])}}" method="post" class=" card shadow p-4">
@@ -40,6 +40,22 @@
                         <label for="unit">Unit</label>
                         <input type="text" name="unit" id="unit" class="form-control" value="{{old('unit') ?? $product->unit}}">
                         @error('unit')
+                            <small class="text-danger">{{$message}}</small>
+                        @enderror
+                    </div>
+                    <div class="form-group my-2">
+                        <label for="type">Type</label>
+                        <select name="type" id="type" class="form-select">
+                            <option value="" disabled selected>Select one</option>
+                            @foreach ($types as $key => $value)
+                                @if (old('type') == $key || $product->type == $key)
+                                    <option value="{{$key}}" selected>{{$value == '' ? 'None' : $value }}</option>
+                                @else
+                                    <option value="{{$key}}">{{$value == '' ? 'None' : $value }}</option>
+                                @endif
+                            @endforeach
+                        </select>
+                        @error('type')
                             <small class="text-danger">{{$message}}</small>
                         @enderror
                     </div>

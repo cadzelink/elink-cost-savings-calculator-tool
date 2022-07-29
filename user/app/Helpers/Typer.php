@@ -38,6 +38,31 @@ class Typer {
         return array_search($number,self::$TYPES);
     }
 
+    private static $TYPE_ALTERNATIVE = [
+        '',
+        'Book Fair',
+        'DMPR',
+        'Book Review',
+        'Book Trailer',
+        'Dynamic Website',
+        'EMPIRE State Book Tour',
+        'Marketing Kit',
+        'Online Brand Publicity',
+        'Press Release',
+        'Print Advertising',
+        'Publishing Package | BW',
+        "Publishing Package | Children's",
+        'Publishing Package | FC',
+        'Publishing Package | eBook',
+        'Radio Interview',
+        'Social Media Advertising',
+        'TFOS',
+        'WTO',
+    ];
 
+    public static function getAlternativeType()
+    {
+        return self::$TYPE_ALTERNATIVE;
+    }
 
 }

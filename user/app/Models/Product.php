@@ -41,7 +41,7 @@ class Product extends Model
         'Radio Interview',
         'Social Media Advertising',
         'TFOS',
-        'WTP',
+        'WTO',
     ];
 
     public function getStringType()

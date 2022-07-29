@@ -24,12 +24,14 @@ class ProductController extends Controller
 
     public function create()
     {
-        return view('products.create');
+        $types = Typer::getAlternativeType();
+        return view('products.create', compact('types'));
     }
 
     public function edit(Product $product)
     {
-        return view('products.edit', ['product' => $product]);
+        $types = Typer::getAlternativeType();
+        return view('products.edit', ['product' => $product, 'types' => $types]);
     }
 
     public function store(Request $request)
@@ -38,12 +40,14 @@ class ProductController extends Controller
             'product' => 'required',
             'gross' => 'required',
             'net' => 'required',
+            'type' => 'required',
         ]);
 
         $product = Product::create([
             'product' => $request->product,
             'gross' => $request->gross,
             'net' => $request->net,
+            'type' => $request->type
         ]);
 
         $description = Logger::generateReport(Arr::only($request->all(), ['product', 'gross', 'net', 'unit']));
