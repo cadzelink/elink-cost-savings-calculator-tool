@@ -168,7 +168,7 @@ class ProductController extends Controller
         }
 
         session()->forget('productSession');
-        return redirect(route('product.import-page'));
+        return redirect(route('product.import-page'))->with('success','Product(s) successfully imported to database');
     }
 
 }
