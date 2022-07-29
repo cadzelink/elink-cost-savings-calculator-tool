@@ -19,7 +19,10 @@ class UserController extends Controller
         ]);
 
         $user = auth()->user();
-        $user->update($request->all());
+        $user->firstname= $request->firstname;
+        $user->lastname= $request->lastname;
+        $user->middlename= $request->middlename;
+        $user->save();
 
         return redirect(route('user.profile'))->with('success','Profile successfully updated to the database');
     }
