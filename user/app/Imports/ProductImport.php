@@ -22,7 +22,15 @@ class ProductImport implements ToCollection,WithHeadingRow
             $product = Product::where('product', $collection['product'])->first();
             if(!$product)
             {
-                $collects->push(Arr::except($collection, ['id']));
+                $newCollection = [];
+
+                if($product->gross != $collection['gross'] || $product->net != $collection['net'] || $product->unit != $collection['unit']){
+                    $newCollection = Arr::add($collection, 'create', false);
+                }else{
+                    $newCollection = Arr::add($collection, 'create', true);
+                }
+
+                $collects->push(Arr::except($newCollection, ['id']));
             }
         }
 
@@ -34,9 +42,4 @@ class ProductImport implements ToCollection,WithHeadingRow
         return 1;
     }
 
-    public static $TYPES = [
-        ' ',
-        'DMPR',
-        'Book Fair',
-    ];
 }
