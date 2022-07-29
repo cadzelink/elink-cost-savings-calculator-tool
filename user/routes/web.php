@@ -33,18 +33,26 @@ Route::middleware(['auth'])->group(function () {
 
     Route::controller(BookController::class)->group(function(){
         Route::get('/books', 'index')->name('book.index');
+        Route::get('/books/import', 'importPage')->name('book.import-page');
         Route::get('/books/create', 'create')->name('book.create');
         Route::get('/books/{book}', 'edit')->name('book.edit');
         Route::post('/books/create', 'store')->name('book.store');
+        Route::post('/books/import', 'import')->name('book.import-file');
         Route::put('/books/{book}', 'update')->name('book.update');
         Route::delete('/books/{book}', 'delete')->name('book.delete');
     });
 
     Route::controller(ProductController::class, 'index')->group(function(){
         Route::get('/products', 'index')->name('product.index');
+        Route::get('/products/bulk', 'importPage')->name('product.import-page');
+        Route::get('/products/import-list', 'importList')->name('product.import-list');
+        Route::get('/products/import-list/cancel', 'importCancel')->name('product.import-cancel');
         Route::get('/products/create', 'create')->name('product.create');
         Route::get('/products/{product}', 'edit')->name('product.edit');
         Route::post('/products/create', 'store')->name('product.store');
+        Route::post('/products/import', 'import')->name('product.import-file');
+        Route::post('/products/import-list/import', 'importData')->name('product.import-data');
+        Route::post('/products/import-list/remove', 'removeList')->name('product.import-remove');
         Route::put('/products/{product}', 'update')->name('product.update');
         Route::delete('/products/{product}', 'delete')->name('product.delete');
     });

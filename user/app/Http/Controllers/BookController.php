@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\Logger;
+use App\Imports\BookImport;
 use App\Models\Book;
 use App\Models\Log;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Maatwebsite\Excel\Facades\Excel;
 
 class BookController extends Controller
 {
@@ -97,6 +99,20 @@ class BookController extends Controller
 
 
        return redirect()->route('book.index')->with('success','Book has been successfully deleted from the database');
+    }
+
+    public function importPage()
+    {
+        return view('books.bulk');
+    }
+
+    public function import(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|file'
+        ]);
+
+        Excel::import((new BookImport), $request->file('file')->store('temp'));
     }
 
 }
