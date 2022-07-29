@@ -14,7 +14,7 @@ class BookController extends Controller
 {
     public function index()
     {
-        $books = Book::paginate(5);
+        $books = Book::orderBy('id', 'DESC')->paginate(5);
         return view('books.index',compact('books'));
     }
 
@@ -113,6 +113,70 @@ class BookController extends Controller
         ]);
 
         Excel::import((new BookImport), $request->file('file')->store('temp'));
+        return redirect(route('book.import-list'));
+    }
+
+    public function importList()
+    {
+
+        if(!session()->get('bookSession')){
+            return redirect(route('book.import-page'));
+        }
+
+        $books = session()->get('bookSession');
+        return view('books.import_list', compact('books'));
+    }
+
+    public function importCancel()
+    {
+        if(!session()->get('bookSession')){
+            return redirect(route('book.import-bulk'));
+        }
+
+        session()->forget('bookSession');
+        return redirect(route('book.index'));
+    }
+
+    public function removeList(Request $request)
+    {
+        if(!session()->get('bookSession')){
+            return redirect(route('book.import-bulk'));
+        }
+        // GG ko dinhi maong ogma nata mag tiwas >_<
+        $books = session()->get('bookSession');
+        for($count = 0; $count < count($books) ; $count++){
+            if($books[$count]['package'] == $request->book){
+                // Arr::pull($books, '0');
+                $books->splice($count, 1);
+                session()->put('bookSession', $books);
+            }
+        }
+
+        return back();
+    }
+
+    public function importData(Request $request)
+    {
+        if(!session()->get('bookSession')){
+            return redirect(route('book.import-bulk'));
+        }
+
+        $books = session()->get('bookSession');
+
+        foreach($books as $book)
+        {
+            Book::create([
+                'package' => $book['package'],
+                'cover' => $book['cover'],
+                'size' => $book['size'],
+                'cover_cost' => $book['cover_cost'],
+                'cost_per_page' => $book['cost_per_page'],
+                'status' => $book['status']
+            ]);
+        }
+
+        session()->forget('bookSession');
+        return redirect(route('book.import-page'))->with('success', 'Package(s) successfully imported to database!');
     }
 
 }
