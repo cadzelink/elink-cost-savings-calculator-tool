@@ -2,7 +2,7 @@
 
 @section('pages')
     <div class="container">
-        <div class="row justify-content-center align-content-center" style="height: 80vh">
+        <div class="row justify-content-center mt-4 ">
             <h3 class="text-center">Product List</h3>
             <div class="card pt-3 mt-1">
                 <div class="d-flex mb-2">
@@ -24,6 +24,8 @@
                         <th scope="col">Gross</th>
                         <th scope="col">Net</th>
                         <th scope="col">Unit</th>
+                        <th scope="col">Type</th>
+                        <th scope="col">Remark</th>
                         <th>Action</th>
                       </tr>
                     </thead>
@@ -34,6 +36,8 @@
                                 <td>{{$value['gross']}}</td>
                                 <td>{{$value['net']}}</td>
                                 <td>{{$value['unit']}}</td>
+                                <td>{{$value['type']}}</td>
+                                <td><b class="{{$value['create'] ? 'text-success' : 'text-warning'}}">{{$value['create'] ? 'ADD' : 'UPDATE'}}</b></td>
                                 <td class="d-flex gap-2 justify-content-center">
                                     {{-- <a href="{{route('product.edit', ['product' => $product])}}" class="btn btn-sm btn-outline-warning" title="Edit">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
@@ -54,7 +58,7 @@
 
                         @empty
                             <tr>
-                                <td colspan="5" class="text-center">No item to import</td>
+                                <td colspan="6" class="text-center">No item to import</td>
                             </tr>
                         @endforelse
 

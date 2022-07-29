@@ -168,13 +168,17 @@
         <script id="product-row-scr" type="text/template">
             <select id="select-{{id}}" style="width: 300px;">
                 <option value="0" data-net="0">Select Product</option>
-            <?php 
+            <?php
+
+                require_once './user/app/Helpers/Typer.php';
+                use App\Helpers\Typer;
+
                 require_once 'lib/conn.php';
                 $mysql = new Conn();
-                $results = $mysql->getResults("SELECT * FROM `calculator` where `type` <> 1 ORDER BY `product` ASC");
+                $results = $mysql->getResults("SELECT * FROM `calculator` where `status` <> 0 ORDER BY `product` ASC");
                 foreach($results as $result):
             ?>
-                <option value="<?php echo $result->gross ?>" data-net="<?php echo $result->net ?>" data-unit="<?php echo $result->unit ?>"><?php echo $result->type == 2 ? "DMPR>" : ""; echo $result->product; ?></option>
+                <option value="<?php echo $result->gross ?>" data-net="<?php echo $result->net ?>" data-unit="<?php echo $result->unit ?>"><?php echo Typer::getStringType($result->type); echo $result->type == 0 ? "" : ">"; echo $result->product; ?></option>
             <?php
                 endforeach;
                 $mysql->close();

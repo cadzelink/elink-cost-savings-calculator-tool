@@ -2,6 +2,7 @@
 
 namespace App\Imports;
 
+use App\Helpers\Typer;
 use App\Models\Product;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
@@ -20,20 +21,21 @@ class ProductImport implements ToCollection,WithHeadingRow
         foreach($collections as $collection)
         {
             $product = Product::where('product', $collection['product'])->first();
+            $newCollection = [];
             if(!$product)
             {
-                $newCollection = [];
-
-                if($product->gross != $collection['gross'] || $product->net != $collection['net'] || $product->unit != $collection['unit']){
+                $newCollection = Arr::add($collection, 'create', true);
+            }else{
+                if($product->gross != $collection['gross'] || $product->net != $collection['net'] || $product->unit != $collection['unit'] || $product->type != Typer::getNumericType($collection['type'])){
                     $newCollection = Arr::add($collection, 'create', false);
-                }else{
-                    $newCollection = Arr::add($collection, 'create', true);
                 }
+            }
 
+            if($newCollection != [] && $newCollection != ''){
                 $collects->push(Arr::except($newCollection, ['id']));
             }
         }
-
+        // $collects->splice($collects->count() -1, 1);
         session()->put('productSession', $collects);
     }
 
@@ -41,5 +43,4 @@ class ProductImport implements ToCollection,WithHeadingRow
     {
         return 1;
     }
-
 }

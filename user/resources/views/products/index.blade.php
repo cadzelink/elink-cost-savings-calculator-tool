@@ -28,6 +28,7 @@
                         <th scope="col">Gross</th>
                         <th scope="col">Net</th>
                         <th scope="col">Unit</th>
+                        <th scope="col">Type</th>
                         <th>Action</th>
                       </tr>
                     </thead>
@@ -38,6 +39,7 @@
                                 <td>{{$product->gross}}</td>
                                 <td>{{$product->net}}</td>
                                 <td>{{$product->unit}}</td>
+                                <td>{{$product->getStringType()}}</td>
                                 <td class="d-flex gap-2 justify-content-center">
                                     <a href="{{route('product.edit', ['product' => $product])}}" class="btn btn-sm btn-outline-warning" title="Edit">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">

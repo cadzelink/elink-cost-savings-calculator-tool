@@ -2,7 +2,7 @@
 
 @section('pages')
     <div class="container">
-        <div class="row justify-content-center mt-5">
+        <div class="row justify-content-center my-4">
                 <h3 class="text-center">Log list</h3>
             <div class="card shadow p-3">
                 <table class="table table-bordered mt-2">

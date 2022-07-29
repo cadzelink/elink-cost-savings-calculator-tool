@@ -168,14 +168,22 @@ class BookController extends Controller
 
         foreach($books as $book)
         {
-            Book::create([
-                'package' => $book['package'],
-                'cover' => $book['cover'],
-                'size' => $book['size'],
-                'cover_cost' => $book['cover_cost'],
-                'cost_per_page' => $book['cost_per_page'],
-                'status' => $book['status']
-            ]);
+            if($book['create']){
+                Book::create([
+                    'package' => $book['package'],
+                    'cover' => $book['cover'],
+                    'size' => $book['size'],
+                    'cover_cost' => $book['cover_cost'],
+                    'cost_per_page' => $book['cost_per_page'],
+                ]);
+            }else{
+                $item = Book::where('package', $book['package'])->first();
+                $item->cover = $book['cover'];
+                $item->size = $book['size'];
+                $item->cover_cost = $book['cover_cost'];
+                $item->cost_per_page = $book['cost_per_page'];
+                $item->save();
+            }
         }
 
         session()->forget('bookSession');

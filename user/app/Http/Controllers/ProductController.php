@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\Logger;
+use App\Helpers\Typer;
 use App\Imports\ProductImport;
 use App\Models\Log;
 use App\Models\Product;
@@ -160,14 +161,22 @@ class ProductController extends Controller
 
         foreach($products as $product)
         {
-            Product::create([
-                'product' => $product['product'],
-                'gross' => $product['gross'],
-                'net' => $product['net'],
-                'unit' => $product['unit'],
-                'type' => $product['type'],
-                'status' => $product['status']
-            ]);
+            if($product['create']){
+                Product::create([
+                    'product' => $product['product'],
+                    'gross' => $product['gross'],
+                    'net' => $product['net'],
+                    'unit' => $product['unit'],
+                    'type' => Typer::getNumericType($product['type']),
+                ]);
+            }else{
+                $item = Product::where('product' , $product['product'])->first();
+                $item->gross = $product['gross'];
+                $item->net = $product['net'];
+                $item->unit = $product['unit'];
+                $item->type = Typer::getNumericType($product['type']);
+                $item->save();
+            }
         }
 
         session()->forget('productSession');

@@ -42,6 +42,16 @@
                             <small class="text-danger">{{$message}}</small>
                         @enderror
                     </div>
+                    <div class="form-group my-2">
+                        <label for="type">Type</label>
+                        <select name="type" id="type" class="form-select">
+                            <option value="" selected>Select one</option>
+
+                        </select>
+                        @error('type')
+                            <small class="text-danger">{{$message}}</small>
+                        @enderror
+                    </div>
                     <div class="form-group mt-2">
                         <button type="submit" class="btn btn-primary">Add Product</button>
                     </div>

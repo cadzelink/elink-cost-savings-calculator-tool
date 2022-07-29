@@ -2,7 +2,7 @@
 
 @section('pages')
     <div class="container">
-        <div class="row justify-content-center align-content-center" style="height: 80vh">
+        <div class="row justify-content-center my-4">
             <h3 class="text-center">Book List</h3>
             <div class="card pt-3 mt-1">
                 <div class="d-flex mb-2">
@@ -25,6 +25,7 @@
                         <th scope="col">Size</th>
                         <th scope="col">Cover Cost</th>
                         <th scope="col">Cost Per Page</th>
+                        <th scope="col">Remark</th>
                         <th>Action</th>
                       </tr>
                     </thead>
@@ -36,6 +37,7 @@
                                 <td>{{$value['size']}}</td>
                                 <td>{{$value['cover_cost']}}</td>
                                 <td>{{$value['cost_per_page']}}</td>
+                                <td><b class="{{$value['create'] ? 'text-success' : 'text-warning'}}">{{$value['create'] ? 'ADD' : 'UPDATE'}}</b></td>
                                 <td class="d-flex gap-2 justify-content-center">
                                     {{-- <a href="{{route('product.edit', ['product' => $product])}}" class="btn btn-sm btn-outline-warning" title="Edit">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
