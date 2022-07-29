@@ -2,6 +2,8 @@
 
 namespace App\Imports;
 
+use App\Models\Book;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
@@ -16,10 +18,18 @@ class BookImport implements ToCollection, WithHeadingRow
         $collects = collect();
         foreach($collections as $collection)
         {
-            $collects->push($collection->except(['id']));
+            $book = Book::where('package', $collection['package'])
+                ->where('cover', $collection['cover'])
+                ->where('size', $collection['size'])
+                ->first();
+            if(!$book)
+            {
+                $collects->push(Arr::except($collection, ['id']));
+            }
         }
+        // dd(session()->get('booksSession'));
 
-        session()->put('booksSession', $collects);
+        session()->put('bookSession', $collects);
     }
 
     public function headingRow(): int

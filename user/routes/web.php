@@ -33,10 +33,15 @@ Route::middleware(['auth'])->group(function () {
     Route::controller(BookController::class)->group(function(){
         Route::get('/books', 'index')->name('book.index');
         Route::get('/books/import', 'importPage')->name('book.import-page');
+        Route::get('/books/import-list', 'importList')->name('book.import-list');
+        Route::get('/books/import-list/cancel', 'importCancel')->name('book.import-cancel');
+
         Route::get('/books/create', 'create')->name('book.create');
         Route::get('/books/{book}', 'edit')->name('book.edit');
         Route::post('/books/create', 'store')->name('book.store');
         Route::post('/books/import', 'import')->name('book.import-file');
+        Route::post('/books/import-list/import', 'importData')->name('book.import-data');
+        Route::post('/books/import-list/remove', 'removeList')->name('book.import-remove');
         Route::put('/books/{book}', 'update')->name('book.update');
         Route::delete('/books/{book}', 'delete')->name('book.delete');
     });
