@@ -12,9 +12,12 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class ProductController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::orderBy('id', 'DESC')->paginate(5);
+        $search = $request->name;
+        $products = Product::when($search, function($query, $search){
+            $query->where('product', 'LIKE', $search.'%');
+        })->orderBy('id', 'DESC')->paginate(5);
         return view('products.index', compact('products'));
     }
 

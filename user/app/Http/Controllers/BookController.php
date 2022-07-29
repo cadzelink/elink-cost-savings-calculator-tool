@@ -12,9 +12,12 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class BookController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $books = Book::orderBy('id', 'DESC')->paginate(5);
+        $search = $request->name;
+        $books = Book::when($search, function($query, $search){
+            $query->where('package', 'LIKE', $search.'%');
+        })->orderBy('id', 'DESC')->paginate(5);
         return view('books.index',compact('books'));
     }
 
