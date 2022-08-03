@@ -1,14 +1,21 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.4.1deb2ubuntu2.1
--- http://www.phpmyadmin.net
+-- version 5.2.0
+-- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: May 04, 2021 at 06:42 AM
--- Server version: 5.7.33-0ubuntu0.16.04.1
--- PHP Version: 7.0.33-0ubuntu0.16.04.16
+-- Host: 127.0.0.1
+-- Generation Time: Jul 30, 2022 at 01:35 AM
+-- Server version: 10.4.24-MariaDB
+-- PHP Version: 7.4.29
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
 SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Database: `rm_sales`
@@ -27,7 +34,7 @@ CREATE TABLE `book_price` (
   `size` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   `cover_cost` decimal(5,2) NOT NULL,
   `cost_per_page` decimal(6,4) NOT NULL,
-  `status` tinyint(4) NOT NULL DEFAULT '1'
+  `status` tinyint(4) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -99,11 +106,11 @@ INSERT INTO `book_price` (`id`, `package`, `cover`, `size`, `cover_cost`, `cost_
 CREATE TABLE `calculator` (
   `id` int(10) UNSIGNED NOT NULL,
   `product` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
-  `gross` decimal(8,3) NOT NULL DEFAULT '0.000',
-  `net` decimal(8,3) NOT NULL DEFAULT '0.000',
-  `unit` varchar(50) COLLATE utf8_unicode_ci ,
-  `type` tinyint(4) NOT NULL DEFAULT '0',
-  `status` tinyint(4) NOT NULL DEFAULT '1'
+  `gross` decimal(8,3) NOT NULL DEFAULT 0.000,
+  `net` decimal(8,3) NOT NULL DEFAULT 0.000,
+  `unit` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `type` tinyint(4) NOT NULL DEFAULT 0,
+  `status` tinyint(4) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -111,16 +118,12 @@ CREATE TABLE `calculator` (
 --
 
 INSERT INTO `calculator` (`id`, `product`, `gross`, `net`, `unit`, `type`, `status`) VALUES
-(1, '2021 Virtual Book Tour', '4247.000', '1499.000', '', 0, 1),
-(2, 'TFOS', '650.000', '650.000', '', 0, 1),
 (3, 'LATFOB', '650.000', '650.000', '', 0, 1),
 (4, 'NYLA', '650.000', '650.000', '', 0, 1),
-(5, 'WTO (3 months)', '1197.000', '1197.000', '', 0, 1),
 (6, 'Indie Book Trio', '4297.000', '2799.000', '', 0, 1),
 (7, 'BlueInk Review', '1299.000', '1299.000', '', 0, 1),
 (8, 'Foreword Review', '1299.000', '1299.000', '', 0, 1),
 (9, 'Kirkus Review', '1699.000', '1699.000', '', 0, 1),
-(10, '2021 TFOS - Starter', '1750.000', '499.000', '', 0, 1),
 (11, 'London Book Fair', '1100.000', '1100.000', '', 0, 1),
 (12, 'DW - Basic', '999.000', '999.000', '', 0, 1),
 (13, 'WTO - Bronze', '2394.000', '2394.000', '', 0, 1),
@@ -149,9 +152,7 @@ INSERT INTO `calculator` (`id`, `product`, `gross`, `net`, `unit`, `type`, `stat
 (36, 'CB - Folklore', '1999.000', '1999.000', '', 0, 1),
 (37, 'CB - Fairytale', '2999.000', '2999.000', '', 0, 1),
 (38, 'CB - Fantasy', '3999.000', '3999.000', '', 0, 1),
-(39, 'eBook - Basic', '669.000', '400.000', '', 0, 1),
-(40, 'eBook - Conversion Basic', '300.000', '300.000', '', 0, 1),
-(41, 'eBook - Conversion Advanced', '350.000', '350.000', '', 0, 1),
+(39, 'eBook - Conversion', '669.000', '400.000', '', 0, 1),
 (42, 'OBP - Silver', '1699.000', '1699.000', '', 0, 1),
 (43, 'OBP - Gold', '2944.000', '2599.000', '', 0, 1),
 (44, 'OBP - Platinum', '5893.000', '5499.000', '', 0, 1),
@@ -195,16 +196,16 @@ INSERT INTO `calculator` (`id`, `product`, `gross`, `net`, `unit`, `type`, `stat
 (82, 'Audiobook - First 5000 Words', '1399.000', '1399.000', '', 0, 1),
 (83, 'Audiobook - Excess Words', '0.100', '0.100', 'Words', 0, 1),
 (84, 'Revision - Interior Text (per word) - Add On Service', '0.130', '0.130', 'Words', 0, 1),
-(85, 'Developmental Editing (5000 Words Min)', '0.060', '0.060', '', 1, 1),
-(86, 'Line Editing (5000 Words Min)', '0.035', '0.035', '', 1, 1),
-(87, 'Copyediting - 60,001 to 120,000 Words)', '0.010', '0.010', '', 1, 1),
-(88, 'Copyediting - 120,001 Words and Up)', '0.010', '0.010', '', 1, 1),
-(89, 'Proofreading (5000 Words Min)', '0.009', '0.009', '', 1, 1),
-(90, 'Data Entry Service (per page)', '2.000', '2.000', 'Pages', 1, 1),
-(91, 'Indexing - 5000 to 6000 Words (5000 Min)', '0.011', '0.011', '', 1, 1),
-(92, 'Indexing - 60.001 to 120,000 Words', '0.010', '0.010', '', 1, 1),
-(93, 'Indexing - 121,000 Words and Up', '0.009', '0.009', 'Words', 1, 1),
-(94, 'Indexing - Author Supplied', '100.000', '100.000', '', 1, 1),
+(85, 'Developmental Editing (5000 Words Min)', '0.060', '0.060', '', 1, 0),
+(86, 'Line Editing (5000 Words Min)', '0.035', '0.035', '', 1, 0),
+(87, 'Copyediting - 60,001 to 120,000 Words)', '0.010', '0.010', '', 1, 0),
+(88, 'Copyediting - 120,001 Words and Up)', '0.010', '0.010', '', 1, 0),
+(89, 'Proofreading (5000 Words Min)', '0.009', '0.009', '', 1, 0),
+(90, 'Data Entry Service (per page)', '2.000', '2.000', 'Pages', 1, 0),
+(91, 'Indexing - 5000 to 6000 Words (5000 Min)', '0.011', '0.011', '', 1, 0),
+(92, 'Indexing - 60.001 to 120,000 Words', '0.010', '0.010', '', 1, 0),
+(93, 'Indexing - 121,000 Words and Up', '0.009', '0.009', 'Words', 1, 0),
+(94, 'Indexing - Author Supplied', '100.000', '100.000', '', 1, 0),
 (95, 'Agriculture>Agriculture', '2275.000', '2275.000', '', 2, 1),
 (96, 'Agriculture>Crops', '1075.000', '1075.000', '', 2, 1),
 (97, 'Agriculture>Farm News', '1985.000', '1985.000', '', 2, 1),
@@ -543,6 +544,118 @@ INSERT INTO `calculator` (`id`, `product`, `gross`, `net`, `unit`, `type`, `stat
 (430, 'Youth & Children\'s Interest>Children\'s Interest', '1850.000', '1850.000', '', 2, 1),
 (431, 'Youth & Children\'s Interest>Youth Interest', '1550.000', '1550.000', '', 2, 1);
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `failed_jobs`
+--
+
+CREATE TABLE `failed_jobs` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `uuid` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `connection` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `queue` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `failed_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `logs`
+--
+
+CREATE TABLE `logs` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `item_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `item_table` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `action` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `migrations`
+--
+
+CREATE TABLE `migrations` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `batch` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `migrations`
+--
+
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
+(1, '2014_10_12_000000_create_users_table', 1),
+(2, '2014_10_12_100000_create_password_resets_table', 1),
+(3, '2019_08_19_000000_create_failed_jobs_table', 1),
+(4, '2019_12_14_000001_create_personal_access_tokens_table', 1),
+(5, '2022_07_27_221630_create_logs_table', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `password_resets`
+--
+
+CREATE TABLE `password_resets` (
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `personal_access_tokens`
+--
+
+CREATE TABLE `personal_access_tokens` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `tokenable_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tokenable_id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `abilities` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `last_used_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
+CREATE TABLE `users` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `firstname` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `lastname` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `middlename` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email_verified_at` timestamp NULL DEFAULT NULL,
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `firstname`, `lastname`, `middlename`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 'Antonina', 'Baumbach', NULL, 'sysadmin@elink.com.ph', '2022-07-29 15:09:34', '$2y$10$FSLHFJfeaIdIOchuVynkL.q3EOwErSl/kHHykOh.K97jck05zIHJq', 'oyFzR3ReNj', '2022-07-29 15:09:34', '2022-07-29 15:09:34');
+
 --
 -- Indexes for dumped tables
 --
@@ -561,6 +674,47 @@ ALTER TABLE `calculator`
   ADD UNIQUE KEY `prod_key` (`product`);
 
 --
+-- Indexes for table `failed_jobs`
+--
+ALTER TABLE `failed_jobs`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`);
+
+--
+-- Indexes for table `logs`
+--
+ALTER TABLE `logs`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `logs_user_id_foreign` (`user_id`);
+
+--
+-- Indexes for table `migrations`
+--
+ALTER TABLE `migrations`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `password_resets`
+--
+ALTER TABLE `password_resets`
+  ADD KEY `password_resets_email_index` (`email`);
+
+--
+-- Indexes for table `personal_access_tokens`
+--
+ALTER TABLE `personal_access_tokens`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `personal_access_tokens_token_unique` (`token`),
+  ADD KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`);
+
+--
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `users_email_unique` (`email`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -569,8 +723,54 @@ ALTER TABLE `calculator`
 --
 ALTER TABLE `book_price`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
+
 --
 -- AUTO_INCREMENT for table `calculator`
 --
 ALTER TABLE `calculator`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=432;
+
+--
+-- AUTO_INCREMENT for table `failed_jobs`
+--
+ALTER TABLE `failed_jobs`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `logs`
+--
+ALTER TABLE `logs`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `migrations`
+--
+ALTER TABLE `migrations`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `personal_access_tokens`
+--
+ALTER TABLE `personal_access_tokens`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `logs`
+--
+ALTER TABLE `logs`
+  ADD CONSTRAINT `logs_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
