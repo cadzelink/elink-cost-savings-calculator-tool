@@ -9,7 +9,7 @@
                 <img src="{{asset('images/ReadersMagnet-Logo.gif')}}" height="120" width="120" alt="" srcset="">
                 {{-- <img src="{{asset('images/readers_magnet.png')}}" height="90" width="90" alt="" srcset=""> --}}
             </div>
-            <h4 class="text-center">RM Online Tutorials</h4>
+            <h4 class="text-center">RM Cost-Savings Calculator Tool</h4>
             <form action="{{route('authenticate')}}" method="post" class="card p-3 shadow">
                 <div class="w-100 d-flex">
                     <a href="../" class="ms-auto text-decoration-none text-secondary">

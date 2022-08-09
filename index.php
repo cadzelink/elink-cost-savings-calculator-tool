@@ -170,10 +170,10 @@
                 <option value="0" data-net="0">Select Product</option>
             <?php
 
-                require_once './user/app/Helpers/Typer.php';
+                 require_once './user/app/Helpers/Typer.php';
                 use App\Helpers\Typer;
 
-                require_once 'lib/conn.php';
+                require_once './lib/conn.php';
                 $mysql = new Conn();
                 $results = $mysql->getResults("SELECT * FROM `calculator` where `status` <> 0 ORDER BY `product` ASC");
                 foreach($results as $result):
